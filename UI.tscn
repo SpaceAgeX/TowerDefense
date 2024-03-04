@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://bmcbvbgvor4d3"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 528.0
+offset_right = 1088.0
+offset_bottom = 632.0
+color = Color(0, 0.466667, 0.772549, 1)
+
+[node name="Town" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 136.0
+offset_top = 552.0
+offset_right = 248.0
+offset_bottom = 608.0
+text = "Town
+"
+
+[node name="Factory" type="Button" parent="."]
+layout_mode = 0
+offset_left = 520.0
+offset_top = 552.0
+offset_right = 632.0
+offset_bottom = 608.0
+text = "Factory"
+
+[node name="Silo" type="Button" parent="."]
+layout_mode = 0
+offset_left = 904.0
+offset_top = 552.0
+offset_right = 1016.0
+offset_bottom = 608.0
+text = "Silo
+"

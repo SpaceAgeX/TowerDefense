@@ -14,7 +14,12 @@ offset_right = 1088.0
 offset_bottom = 632.0
 color = Color(0, 0.466667, 0.772549, 1)
 
-[node name="Town" type="Button" parent="."]
+[node name="Buttons" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Town" type="Button" parent="Buttons"]
 layout_mode = 1
 anchors_preset = -1
 offset_left = 136.0
@@ -24,7 +29,7 @@ offset_bottom = 608.0
 text = "Town
 "
 
-[node name="Factory" type="Button" parent="."]
+[node name="Factory" type="Button" parent="Buttons"]
 layout_mode = 0
 offset_left = 520.0
 offset_top = 552.0
@@ -32,7 +37,7 @@ offset_right = 632.0
 offset_bottom = 608.0
 text = "Factory"
 
-[node name="Silo" type="Button" parent="."]
+[node name="Silo" type="Button" parent="Buttons"]
 layout_mode = 0
 offset_left = 904.0
 offset_top = 552.0

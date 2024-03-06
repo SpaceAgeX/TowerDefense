@@ -9,7 +9,7 @@ func write(msg,time):
 		tween.kill()
 		modulate = Color.WHITE
 	tween = get_tree().create_tween()
-	tween.tween_property(self, "modulate", Color.TRANSPARENT, time/2).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(self, "modulate", Color.TRANSPARENT, time).set_trans(Tween.TRANS_EXPO)
 	
 	
 

@@ -21,10 +21,10 @@ func _ready():
 		
 		
 
-func on_clicked(name):
-	Building = get_node("Buildings/"+str(name))
+func on_clicked(tile):
+	Building = get_node("Buildings/"+str(tile))
 	if Building.placeable:
-		print(name)
+		print(tile)
 		print(on)
 		match on:
 			Buttons.EMPTY:
@@ -40,9 +40,9 @@ func on_clicked(name):
 				Building.type = Building.Types.SILO
 				on = Buttons.EMPTY
 	else:
-		$UI/HUD/Display.write("Can't Place There Stupid",2)
+		$UI/HUD/Display.write("Can't Place There", 3)
 		
-	get_node("Buildings/"+str(name)).updateType()
+	get_node("Buildings/"+str(tile)).updateType()
 
 
 

@@ -26,7 +26,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Click") and InArea:
 		print("Click on:"+str(position))
 		clicked.emit(self.name)
-		print("Action Pressed")
+		
 		
 		
 

@@ -1,6 +1,6 @@
 extends Node2D
 
-enum Buttons {
+enum Buttons{
 	EMPTY,
 	TOWN,
 	FACTORY,
@@ -40,7 +40,7 @@ func on_clicked(name):
 				Building.type = Building.Types.SILO
 				on = Buttons.EMPTY
 	else:
-		$UI/HUD/Display.write("Can't Place There",2)
+		$UI/HUD/Display.write("Can't Place There Stupid",2)
 		
 	get_node("Buildings/"+str(name)).updateType()
 

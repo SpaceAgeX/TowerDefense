@@ -9,6 +9,11 @@ enum Buttons{
 
 var on = Buttons.EMPTY
 
+
+
+var Building
+@onready var Display = $UI/HUD/Display
+
 func _ready():
 	await get_tree().create_timer(0.1).timeout
 	for x in $Buildings.get_children():
@@ -17,21 +22,26 @@ func _ready():
 		
 
 func on_clicked(name):
-	print(name)
-	print(on)
-	match on:
-		Buttons.EMPTY:
-			get_node("Buildings/"+str(name)).type = get_node("Buildings/"+str(name)).Types.EMPTY
-			on = Buttons.EMPTY
-		Buttons.TOWN:
-			get_node("Buildings/"+str(name)).type = get_node("Buildings/"+str(name)).Types.TOWN
-			on = Buttons.EMPTY
-		Buttons.FACTORY:
-			get_node("Buildings/"+str(name)).type = get_node("Buildings/"+str(name)).Types.FACTORY
-			on =Buttons.EMPTY
-		Buttons.SILO:
-			get_node("Buildings/"+str(name)).type = get_node("Buildings/"+str(name)).Types.SILO
-			on = Buttons.EMPTY
+	Building = get_node("Buildings/"+str(name))
+	if Building.placeable:
+		print(name)
+		print(on)
+		match on:
+			Buttons.EMPTY:
+				Building.type = Building.Types.EMPTY
+				on = Buttons.EMPTY
+			Buttons.TOWN:
+				Building.type = Building.Types.TOWN
+				on = Buttons.EMPTY
+			Buttons.FACTORY:
+				Building.type = Building.Types.FACTORY
+				on =Buttons.EMPTY
+			Buttons.SILO:
+				Building.type = Building.Types.SILO
+				on = Buttons.EMPTY
+	else:
+		$UI/HUD/Display.write("Can't Place There",2)
+		
 	get_node("Buildings/"+str(name)).updateType()
 
 

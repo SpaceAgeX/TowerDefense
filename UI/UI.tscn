@@ -1,4 +1,9 @@
-[gd_scene format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=3 format=3 uid="uid://bmcbvbgvor4d3"]
+
+[ext_resource type="Script" path="res://UI/Display.gd" id="1_8a8y2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_g0406"]
+font_size = 30
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -45,3 +50,21 @@ offset_right = 1016.0
 offset_bottom = 608.0
 text = "Silo
 "
+
+[node name="HUD" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 96.0
+offset_top = 16.0
+offset_right = 1056.0
+offset_bottom = 144.0
+
+[node name="Display" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 24.0
+offset_right = 776.0
+offset_bottom = 104.0
+label_settings = SubResource("LabelSettings_g0406")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_8a8y2")

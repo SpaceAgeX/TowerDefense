@@ -31,22 +31,21 @@ func _physics_process(delta):
 
 
 func updateType():
-	if placeable:
-		match type:
-			Types.EMPTY:
-				Building.visible = false
-			Types.TOWN:
-				Building.visible = true
-				Building.frame = 0
-				placeable = false
-			Types.FACTORY:
-				Building.visible = true
-				Building.frame = 3
-				placeable = false
-			Types.SILO:
-				Building.visible = true
-				Building.frame = 6
-				placeable = false
+	match type:
+		Types.EMPTY:
+			Building.visible = false
+		Types.TOWN:
+			Building.visible = true
+			Building.frame = 0
+			placeable = false
+		Types.FACTORY:
+			Building.visible = true
+			Building.frame = 3
+			placeable = false
+		Types.SILO:
+			Building.visible = true
+			Building.frame = 6
+			placeable = false
 				
 func _on_area_2d_mouse_entered():
 	InArea = true

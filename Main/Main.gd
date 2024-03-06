@@ -1,6 +1,6 @@
-extends Node2D
+extends Node
 
-enum Buttons{
+enum Buttons {
 	EMPTY,
 	TOWN,
 	FACTORY,

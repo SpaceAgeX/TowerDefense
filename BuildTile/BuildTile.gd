@@ -14,6 +14,9 @@ enum Types {
 var placeable = true
 var InArea = false
 
+var health = 10
+var damage = 0
+
 @export var type:Types = Types.EMPTY
 
 @onready var Building = $Buildings

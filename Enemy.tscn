@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dgcw2j0j7rouw"]
+
+[ext_resource type="Script" path="res://Enemy.gd" id="1_28cpw"]
+[ext_resource type="Texture2D" uid="uid://62e0h40yc1ak" path="res://Assets/Shadow.png" id="2_io3jh"]
+[ext_resource type="Texture2D" uid="uid://qxfejtswmio3" path="res://Assets/Enemies.png" id="2_tbtjx"]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_28cpw")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(0, 16)
+scale = Vector2(4, 4)
+texture = ExtResource("2_io3jh")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("2_tbtjx")
+hframes = 11

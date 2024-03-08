@@ -25,6 +25,7 @@ sources/0 = SubResource("TileSetScenesCollectionSource_p6xeh")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_s62b8")
+metadata/_edit_vertical_guides_ = []
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

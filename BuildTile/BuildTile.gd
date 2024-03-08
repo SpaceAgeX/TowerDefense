@@ -1,6 +1,6 @@
 extends Node2D
 
-signal clicked(name:Node2D)
+signal clicked(name: Node2D)
 
 
 enum Types {
@@ -8,7 +8,6 @@ enum Types {
 	TOWN,
 	FACTORY,
 	SILO,
-	
 }
 
 var placeable = true
@@ -28,8 +27,7 @@ func _ready():
 func _physics_process(delta):
 	if Input.is_action_just_pressed("Click") and InArea:
 		print("Click on:"+str(position))
-		clicked.emit(self.name)
-	
+		clicked.emit(self.name)	
 	match type:
 		Types.EMPTY:
 			pass
@@ -59,7 +57,8 @@ func updateType():
 			Building.visible = true
 			Building.frame = 6
 			placeable = false
-				
+
+
 func _on_area_2d_mouse_entered():
 	InArea = true
 

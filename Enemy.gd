@@ -15,6 +15,7 @@ func  _ready():
 	
 	if type > 4 and type < 8:
 		$Sprite2D.position.y -= 20
+		$Target.position.y -= 20
 		$Shadow.visible = true
 	
 	$Sprite2D.frame = type
@@ -28,7 +29,14 @@ func _physics_process(delta):
 	if direction and position.distance_to(Target) > 150:
 		velocity = direction * SPEED
 	else:
-		queue_free()
 		velocity = Vector2.ZERO
 	
 	move_and_slide()
+	
+	
+func targeted(time):
+	$Target.visible = true
+	$Timer.wait_time = time
+	$Timer.start()
+	await $Timer.timeout
+	queue_free()

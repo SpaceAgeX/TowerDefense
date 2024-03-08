@@ -1,7 +1,7 @@
 extends Node2D
 
 signal clicked(name: Node2D)
-
+signal missileFired(name: Node2D,time)
 
 enum Types {
 	EMPTY,
@@ -15,6 +15,8 @@ var InArea = false
 
 var health = 10
 var damage = 0
+var interval = 0
+var Cooldown = 0
 
 @export var type:Types = Types.EMPTY
 
@@ -57,8 +59,18 @@ func updateType():
 			Building.visible = true
 			Building.frame = 6
 			placeable = false
+			silo()
 
+func silo():
+	$Timer.start()
+	interval = 0.1
+	Cooldown = 0.1 +interval#Placeholer
 
+	$Timer.wait_time = Cooldown
+	missileFired.emit(self.name, interval)
+	await $Timer.timeout
+	silo()
+	
 func _on_area_2d_mouse_entered():
 	InArea = true
 

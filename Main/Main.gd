@@ -22,12 +22,13 @@ func _ready():
 	
 	for x in $Buildings.get_children():
 		x.clicked.connect(on_clicked)
+		x.missileFired.connect(missile)
 	
 	$UI/Buttons/Factory.disabled = true
 	$UI/Buttons/Silo.disabled = true
 	
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("RightClick"):
 		$UI/Buttons.visible = true
 		on = Buttons.EMPTY
@@ -63,6 +64,10 @@ func on_clicked(tile):
 	
 	Building.updateType()
 
+func missile(tile, time):
+	if $Enemies.get_child_count() != 0:
+		$Enemies.get_enemy(get_node("Buildings/"+str(tile)).position).targeted(time)
+	
 
 func _on_town_pressed():
 	$UI/Buttons.visible = false
@@ -71,16 +76,12 @@ func _on_factory_pressed():
 	$UI/Buttons.visible = false
 	on = Buttons.FACTORY
 func _on_silo_pressed():
-	
-	
-	
 	$UI/Buttons.visible = false
 	on = Buttons.SILO
 
 
-
 func town():
-	TownPosition = Building.position
+	TownPosition = Building.global_position
 	$UI/Buttons/Town.disabled = true
 	$UI/Buttons/Factory.disabled = false
 	$UI/Buttons/Silo.disabled = false

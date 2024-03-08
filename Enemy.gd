@@ -11,16 +11,17 @@ var type = 0
 @export var Target = Vector2.ZERO
 
 func  _ready():
-	type = randi_range(0,5)
+	type = randi_range(0, 5)
+	
 	if type > 4 and type < 8:
 		$Sprite2D.position.y -= 20
 		$Shadow.visible = true
+	
 	$Sprite2D.frame = type
+
 
 func _physics_process(delta):
 	var direction = position.direction_to(Target)
-	
-	
 	
 	$Sprite2D.flip_h = direction.x < 0
 	
@@ -29,5 +30,5 @@ func _physics_process(delta):
 	else:
 		queue_free()
 		velocity = Vector2.ZERO
-
+	
 	move_and_slide()

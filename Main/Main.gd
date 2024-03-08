@@ -1,6 +1,6 @@
 extends Node2D
 
-enum Buttons{
+enum Buttons {
 	EMPTY,
 	TOWN,
 	FACTORY,
@@ -10,23 +10,26 @@ enum Buttons{
 var on = Buttons.EMPTY
 
 
-
 var Building
 @onready var Display = $UI/HUD/Display
 
 func _ready():
 	await get_tree().create_timer(0.1).timeout
+	
 	for x in $Buildings.get_children():
 		x.clicked.connect(on_clicked)
-		
+
+
 func _physics_process(delta):
 	if Input.is_action_just_pressed("RightClick"):
 		$UI/Buttons.visible = true
 		on = Buttons.EMPTY
 		cancel_place()
-		
+
+
 func cancel_place():
 	pass
+
 
 func on_clicked(tile):
 	Building = get_node("Buildings/"+str(tile))
@@ -44,18 +47,16 @@ func on_clicked(tile):
 				on = Buttons.EMPTY
 			Buttons.FACTORY:
 				Building.type = Building.Types.FACTORY
-				on =Buttons.EMPTY
+				on = Buttons.EMPTY
 			Buttons.SILO:
 				Building.type = Building.Types.SILO
 				on = Buttons.EMPTY
+		
 		$UI/Buttons.visible = true
 	else:
 		$UI/HUD/Display.write("Can't Place There", 3)
 	
-	
-	get_node("Buildings/"+str(tile)).updateType()
-
-
+	Building.updateType()
 
 
 func _on_town_pressed():

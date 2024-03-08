@@ -78,8 +78,6 @@ func _on_silo_pressed():
 	on = Buttons.SILO
 
 
-func cancel_place():
-	pass
 
 func town():
 	TownPosition = Building.position

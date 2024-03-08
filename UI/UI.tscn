@@ -11,18 +11,18 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Buttons" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Buttons"]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 528.0
 offset_right = 1088.0
 offset_bottom = 632.0
 color = Color(0, 0.466667, 0.772549, 1)
-
-[node name="Buttons" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="Town" type="Button" parent="Buttons"]
 layout_mode = 1

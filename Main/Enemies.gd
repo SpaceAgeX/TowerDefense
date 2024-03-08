@@ -5,12 +5,16 @@ extends Node2D
 var enemy_scene = preload("res://Enemy.tscn")
 var enemy_node = null
 
-@export var target = Vector2.ZERO
-@export var rateIncrease = 0 #per frame
-@export var spawnRate = 1 # over 100 chance per frame
-
+var target = Vector2.ZERO
 var rate = -1 # to disable spawing till needed
 var n = null
+
+@export var enabled = true
+@export var rateIncrease = 0 #per frame
+@export var spawnRate = 1 # over 100 chance per frame
+@export var spawnDist = 750
+
+
 
 func _ready():
 	if !self.enabled:

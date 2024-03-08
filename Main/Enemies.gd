@@ -21,7 +21,7 @@ func _physics_process(delta):
 
 		enemy_node = enemy_scene.instantiate()
 		enemy_node.position = (Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()) * spawnDist
-    enemy_node.Target = target
+		enemy_node.Target = target
 		self.add_child(enemy_node)
 		
 

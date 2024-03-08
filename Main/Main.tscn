@@ -44,6 +44,10 @@ layer_0/tile_data = PackedInt32Array(-3, 0, 65536, 65533, 0, 65536, -65538, 0, 6
 
 [node name="Enemies" type="Node2D" parent="."]
 script = ExtResource("4_lk6ok")
+enabled = null
+spawnDist = null
+rate = null
+rateIncrease = null
 
 [node name="UI" parent="." instance=ExtResource("1_mgneh")]
 offset_left = -576.0

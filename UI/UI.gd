@@ -1,5 +1,6 @@
 extends Control
 
+
 @onready var dialogue_label = $HUD/Display
 @onready var side_bar = $Buttons
 

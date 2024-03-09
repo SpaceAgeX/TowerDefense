@@ -15,14 +15,12 @@ var n = null
 @export var spawnDist = 750
 
 
-
 func _ready():
 	if !self.enabled:
 		queue_free()
 
 func _physics_process(delta):
 	if randi_range(0, 100) < rate:
-
 		enemy_node = enemy_scene.instantiate()
 		enemy_node.position = ((Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()) * spawnDist)+target
 		enemy_node.Target = target
@@ -32,11 +30,12 @@ func _physics_process(delta):
 func set_rate():
 	rate = spawnRate
 
-func get_enemy(pos):
+func get_nearest_enemy(pos):
 	var nearest = get_child(0)
 	
-	for x in get_children():
-		if x.position.distance_to(pos) < nearest.position.distance_to(pos):
-			nearest = x
+	for child in get_children():
+		if child.position.distance_to(pos) < nearest.position.distance_to(pos):
+			nearest = child
+	
 	return nearest
 

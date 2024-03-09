@@ -1,7 +1,6 @@
 extends Node2D
 
 signal clicked(name: Node2D)
-signal missileFired(name: Node2D,time)
 
 enum Types {
 	EMPTY,
@@ -15,12 +14,13 @@ var InArea = false
 
 var health = 10
 var damage = 0
-var interval = 0
-var Cooldown = 0
+var cooldown = 3
 
-@export var type:Types = Types.EMPTY
+@export var type: Types = Types.EMPTY
 
-@onready var Building = $Buildings
+@onready var Buildings = $Buildings
+@onready var Enemies = $"../../Enemies"
+
 
 func _ready():
 	updateType()
@@ -28,8 +28,9 @@ func _ready():
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed("Click") and InArea:
-		print("Click on:"+str(position))
-		clicked.emit(self.name)	
+		print("Click on:" + str(position))
+		clicked.emit(self.name)
+	
 	match type:
 		Types.EMPTY:
 			pass
@@ -46,31 +47,35 @@ func _physics_process(delta):
 func updateType():
 	match type:
 		Types.EMPTY:
-			Building.visible = false
+			Buildings.visible = false
+		
 		Types.TOWN:
-			Building.visible = true
-			Building.frame = 0
+			Buildings.visible = true
+			Buildings.frame = 0
 			placeable = false
+		
 		Types.FACTORY:
-			Building.visible = true
-			Building.frame = 3
+			Buildings.visible = true
+			Buildings.frame = 3
 			placeable = false
+		
 		Types.SILO:
-			Building.visible = true
-			Building.frame = 6
+			Buildings.visible = true
+			Buildings.frame = 6
 			placeable = false
-			silo()
+			updateSilo()
 
-func silo():
-	$Timer.start()
-	interval = 0.1
-	Cooldown = 0.1 +interval#Placeholer
 
-	$Timer.wait_time = Cooldown
-	missileFired.emit(self.name, interval)
-	await $Timer.timeout
-	silo()
+func updateSilo():
+	await get_tree().create_timer(cooldown + 0.1).timeout
+	var nearest_enemy = Enemies.get_nearest_enemy(self.position)
 	
+	if nearest_enemy != null:
+		nearest_enemy.targeted(cooldown)
+	
+	updateSilo()
+
+
 func _on_area_2d_mouse_entered():
 	InArea = true
 

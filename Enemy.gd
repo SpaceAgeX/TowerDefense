@@ -5,7 +5,6 @@ const SPEED = 50.0
 
 var health = 10.0
 var damage = 0
-
 var type = 0
 
 @export var Target = Vector2.ZERO
@@ -15,8 +14,8 @@ func  _ready():
 	
 	if type > 4 and type < 8:
 		$Sprite2D.position.y -= 20
-		$Target.position.y -= 20
 		$Shadow.visible = true
+		$Target.position.y -= 20
 	
 	$Sprite2D.frame = type
 
@@ -36,7 +35,5 @@ func _physics_process(delta):
 	
 func targeted(time):
 	$Target.visible = true
-	$Timer.wait_time = time
-	$Timer.start()
-	await $Timer.timeout
+	await get_tree().create_timer(time).timeout
 	queue_free()

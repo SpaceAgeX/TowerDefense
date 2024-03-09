@@ -51,9 +51,9 @@ func on_tile_clicked(tile):
 	selected_tile.updateType()
 
 
-func place_build_tile(position):
-	var x_position = floor(position.x/64)*16
-	var y_position = floor(position.y/64)*16
+func place_build_tile(pos):
+	var x_position = floor(pos.x/64)*16
+	var y_position = floor(pos.y/64)*16
 
 	$UI/Buttons.visible = true
 	$UI/ToggleSideBar.visible = true

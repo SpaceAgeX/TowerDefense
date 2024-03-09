@@ -1,70 +1,173 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=11 format=3 uid="uid://bmcbvbgvor4d3"]
 
-[ext_resource type="Script" path="res://UI/Display.gd" id="1_8a8y2"]
+[ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
+[ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
+[ext_resource type="StyleBox" uid="uid://b33330g5gv3qx" path="res://UI/ButtonStyleBox.tres" id="3_cjypk"]
+[ext_resource type="Texture2D" uid="uid://dlio1f13tgfvj" path="res://Assets/Buildings.png" id="3_y6ged"]
+[ext_resource type="StyleBox" uid="uid://cponnsbw0gmap" path="res://UI/ButtonDisabledStyleBox.tres" id="4_thrgd"]
+[ext_resource type="StyleBox" uid="uid://b2qbvdbkxnlwc" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
+[ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="6_ijlg7"]
+[ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g0406"]
 font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqbiq"]
+bg_color = Color(0.509804, 0.298039, 1, 1)
 
 [node name="UI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
+script = ExtResource("1_q1mj0")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 0
+offset_right = 1153.0
+offset_bottom = 170.0
+
+[node name="Display" type="Label" parent="HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -265.5
+offset_top = 20.0
+offset_right = 276.5
+offset_bottom = 114.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 1
+label_settings = SubResource("LabelSettings_g0406")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Buttons" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 396.0
+grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="Buttons"]
-layout_mode = 0
-offset_left = 64.0
-offset_top = 528.0
-offset_right = 1088.0
-offset_bottom = 632.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -46.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0.466667, 0.772549, 1)
 
 [node name="Town" type="Button" parent="Buttons"]
 layout_mode = 1
-anchors_preset = -1
-offset_left = 136.0
-offset_top = 552.0
-offset_right = 248.0
-offset_bottom = 608.0
+offset_left = 25.0
+offset_top = 100.0
+offset_right = 275.0
+offset_bottom = 175.0
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_cjypk")
+theme_override_styles/hover = ExtResource("4_wr4ws")
+theme_override_styles/pressed = ExtResource("3_cjypk")
+theme_override_styles/disabled = ExtResource("4_thrgd")
+theme_override_styles/focus = ExtResource("3_cjypk")
 text = "Town
 "
+alignment = 2
+
+[node name="TownSprite" type="Sprite2D" parent="Buttons/Town"]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(5, 5)
+texture = ExtResource("3_y6ged")
+centered = false
+hframes = 8
 
 [node name="Factory" type="Button" parent="Buttons"]
-layout_mode = 0
-offset_left = 520.0
-offset_top = 552.0
-offset_right = 632.0
-offset_bottom = 608.0
+layout_mode = 1
+offset_left = 25.0
+offset_top = 200.0
+offset_right = 275.0
+offset_bottom = 275.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_cjypk")
+theme_override_styles/hover = ExtResource("4_wr4ws")
+theme_override_styles/pressed = ExtResource("3_cjypk")
+theme_override_styles/disabled = ExtResource("4_thrgd")
+theme_override_styles/focus = ExtResource("3_cjypk")
 text = "Factory"
+alignment = 2
+
+[node name="FactorySprite" type="Sprite2D" parent="Buttons/Factory"]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(5, 5)
+texture = ExtResource("3_y6ged")
+centered = false
+hframes = 8
+frame = 3
 
 [node name="Silo" type="Button" parent="Buttons"]
-layout_mode = 0
-offset_left = 904.0
-offset_top = 552.0
-offset_right = 1016.0
-offset_bottom = 608.0
+layout_mode = 1
+offset_left = 25.0
+offset_top = 300.0
+offset_right = 275.0
+offset_bottom = 375.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_cjypk")
+theme_override_styles/hover = ExtResource("4_wr4ws")
+theme_override_styles/pressed = ExtResource("3_cjypk")
+theme_override_styles/disabled = ExtResource("4_thrgd")
+theme_override_styles/focus = ExtResource("3_cjypk")
 text = "Silo
 "
+alignment = 2
 
-[node name="HUD" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 96.0
-offset_top = 16.0
-offset_right = 1056.0
-offset_bottom = 144.0
+[node name="SiloSprite" type="Sprite2D" parent="Buttons/Silo"]
+position = Vector2(1.90735e-06, 0)
+scale = Vector2(5, 5)
+texture = ExtResource("3_y6ged")
+centered = false
+hframes = 8
+frame = 6
 
-[node name="Display" type="Label" parent="HUD"]
-layout_mode = 0
-offset_left = 184.0
-offset_top = 24.0
-offset_right = 776.0
-offset_bottom = 104.0
-label_settings = SubResource("LabelSettings_g0406")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("1_8a8y2")
+[node name="Tile" type="Button" parent="Buttons"]
+layout_mode = 1
+offset_left = 25.0
+offset_top = 500.0
+offset_right = 275.0
+offset_bottom = 575.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_cjypk")
+theme_override_styles/hover = ExtResource("4_wr4ws")
+theme_override_styles/pressed = ExtResource("3_cjypk")
+theme_override_styles/disabled = ExtResource("4_thrgd")
+theme_override_styles/focus = ExtResource("3_cjypk")
+text = "Tile
+"
+alignment = 2
+
+[node name="Selector" type="Sprite2D" parent="Buttons/Tile"]
+scale = Vector2(5, 5)
+texture = ExtResource("6_ijlg7")
+centered = false
+
+[node name="ToggleSideBar" type="Button" parent="."]
+layout_mode = 1
+offset_left = 25.0
+offset_top = 10.0
+offset_right = 100.0
+offset_bottom = 79.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_bqbiq")
+
+[node name="Sprite2D" type="Sprite2D" parent="ToggleSideBar"]
+scale = Vector2(3, 3)
+texture = ExtResource("7_nb8e2")
+centered = false
+
+[connection signal="pressed" from="ToggleSideBar" to="." method="_on_toggle_side_bar_pressed"]

@@ -1,89 +1,104 @@
 extends Node2D
 
-enum Buttons {
-	EMPTY,
-	TOWN,
-	FACTORY,
-	SILO,
-}
+@onready var build_tile_scene = preload("res://BuildTile/Build_tile.tscn")
 
-var on = Buttons.EMPTY
-
-
-var TownPosition = Vector2.ZERO
-
-
-var Building
-@onready var Display = $UI/HUD/Display
+var on = BuildTile.Types.EMPTY
+var new_tile_on = false
 
 func _ready():
 	randomize()
 	await get_tree().create_timer(0.1).timeout
 	
-	for x in $Buildings.get_children():
-		x.clicked.connect(on_clicked)
-		x.missileFired.connect(missile)
+	for child in $Buildings.get_children():
+		child.clicked.connect(on_tile_clicked)
 	
 	$UI/Buttons/Factory.disabled = true
 	$UI/Buttons/Silo.disabled = true
-	
-	
+
+
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("RightClick"):
-		$UI/Buttons.visible = true
-		on = Buttons.EMPTY
 		cancel_place()
-
+	
+	if Input.is_action_just_pressed("Click") and new_tile_on:
+		var mouse_position = get_global_mouse_position()
+		place_build_tile(mouse_position)
 
 
 func cancel_place():
-	pass
-
-
-
-func on_clicked(tile):
-	Building = get_node("Buildings/"+str(tile))
-	
-	if Building.placeable:
-		match on:
-			Buttons.EMPTY:
-				Building.type = Building.Types.EMPTY
-				
-			Buttons.TOWN:
-				Building.type = Building.Types.TOWN
-				town()
-				
-			Buttons.FACTORY:
-				Building.type = Building.Types.FACTORY
-			Buttons.SILO:
-				Building.type = Building.Types.SILO
 		$UI/Buttons.visible = true
-		on = Buttons.EMPTY
-	else:
-		$UI/HUD/Display.write("Can't Place There", 2)
-	
-	Building.updateType()
+		$UI/ToggleSideBar.visible = true
+		on = BuildTile.Types.EMPTY
 
-func missile(tile, time):
-	if $Enemies.get_child_count() != 0:
-		$Enemies.get_enemy(get_node("Buildings/"+str(tile)).position).targeted(time)
+
+func on_tile_clicked(tile):
+	var selected_tile = get_node("Buildings/" + str(tile))
 	
+	if selected_tile.placeable:
+		selected_tile.type = on
+		
+		if on == BuildTile.Types.TOWN:
+			createTown(selected_tile)
+		
+		$UI/Buttons.visible = true
+		$UI/ToggleSideBar.visible = true
+		on = BuildTile.Types.EMPTY
+	
+	else:
+		print("Can't Place Here")
+		$UI.write_dialogue("Can't Place There", 2)
+	
+	selected_tile.updateType()
+
+
+func place_build_tile(position):
+	var x_position = floor(position.x/64)*16
+	var y_position = floor(position.y/64)*16
+
+	$UI/Buttons.visible = true
+	$UI/ToggleSideBar.visible = true
+	new_tile_on = false
+	print(position, " -> ", Vector2(x_position, y_position))
+	
+	#$Buildings.set_cell(0, Vector2i(4, 0), 0, )
+	var new_tile = build_tile_scene.instantiate()
+	$Buildings.add_child(new_tile)
+	
+	new_tile.position = Vector2i(x_position+8, y_position+8)
+	new_tile.name = "NewBuildTile"
+	new_tile.clicked.connect(on_tile_clicked)
+
 
 func _on_town_pressed():
 	$UI/Buttons.visible = false
-	on = Buttons.TOWN
+	$UI/ToggleSideBar.visible = false
+	on = BuildTile.Types.TOWN
+
+
 func _on_factory_pressed():
 	$UI/Buttons.visible = false
-	on = Buttons.FACTORY
+	$UI/ToggleSideBar.visible = false
+	on = BuildTile.Types.FACTORY
+
+
 func _on_silo_pressed():
 	$UI/Buttons.visible = false
-	on = Buttons.SILO
+	$UI/ToggleSideBar.visible = false
+	on = BuildTile.Types.SILO
 
 
-func town():
-	TownPosition = Building.global_position
+func _on_new_tile_pressed():
+	$UI/Buttons.visible = false
+	$UI/ToggleSideBar.visible = false
+	on = BuildTile.Types.EMPTY
+	new_tile_on = true
+
+
+func createTown(tile):
+	var town_position = tile.global_position
+	
 	$UI/Buttons/Town.disabled = true
 	$UI/Buttons/Factory.disabled = false
 	$UI/Buttons/Silo.disabled = false
-	$Enemies.target = TownPosition
+	$Enemies.target = town_position
 	$Enemies.set_rate()

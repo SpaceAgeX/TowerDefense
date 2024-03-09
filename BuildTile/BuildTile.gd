@@ -14,7 +14,7 @@ var InArea = false
 
 var health = 10
 var damage = 0
-var cooldown = 3
+var cooldown = 1.5
 
 @export var type: Types = Types.EMPTY
 
@@ -40,8 +40,6 @@ func _physics_process(delta):
 			pass
 		Types.SILO:
 			pass
-		
-		
 
 
 func updateType():

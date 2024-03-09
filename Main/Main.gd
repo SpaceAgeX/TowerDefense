@@ -7,19 +7,17 @@ enum Buttons {
 	SILO,
 }
 
+
 var on = Buttons.EMPTY
 var TownPosition = Vector2.ZERO
-
-
 var Building
-@onready var Display = $UI/HUD/Display
 
 func _ready():
 	randomize()
 	await get_tree().create_timer(0.1).timeout
 	
-	for x in $Buildings.get_children():
-		x.clicked.connect(on_clicked)
+	for child in $Buildings.get_children():
+		child.clicked.connect(on_clicked)
 	
 	$UI/Buttons/Factory.disabled = true
 	$UI/Buttons/Silo.disabled = true
@@ -39,41 +37,47 @@ func cancel_place():
 
 
 func on_clicked(tile):
-	Building = get_node("Buildings/"+str(tile))
+	Building = get_node("Buildings/" + str(tile))
 	
 	if Building.placeable:
 		match on:
 			Buttons.EMPTY:
 				Building.type = Building.Types.EMPTY
-				
+			
 			Buttons.TOWN:
 				Building.type = Building.Types.TOWN
 				town()
-				
+			
 			Buttons.FACTORY:
 				Building.type = Building.Types.FACTORY
+			
 			Buttons.SILO:
 				Building.type = Building.Types.SILO
+		
 		$UI/Buttons.visible = true
+		$UI/ToggleSideBar.visible = true
 		on = Buttons.EMPTY
 	else:
-		$UI/HUD/Display.write("Can't Place There", 2)
+		$UI.write_dialogue("Can't Place There", 2)
 	
 	Building.updateType()
 	
 
 func _on_town_pressed():
 	$UI/Buttons.visible = false
+	$UI/ToggleSideBar.visible = false
 	on = Buttons.TOWN
 
 
 func _on_factory_pressed():
 	$UI/Buttons.visible = false
+	$UI/ToggleSideBar.visible = false
 	on = Buttons.FACTORY
 
 
 func _on_silo_pressed():
 	$UI/Buttons.visible = false
+	$UI/ToggleSideBar.visible = false
 	on = Buttons.SILO
 
 

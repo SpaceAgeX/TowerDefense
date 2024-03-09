@@ -20,7 +20,7 @@ func  _ready():
 	$Sprite2D.frame = type
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var direction = position.direction_to(Target)
 	
 	$Sprite2D.flip_h = direction.x < 0

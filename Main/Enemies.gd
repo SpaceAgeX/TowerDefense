@@ -1,7 +1,5 @@
 extends Node2D
 
-
-
 var enemy_scene = preload("res://Enemy.tscn")
 var enemy_node = null
 
@@ -19,23 +17,29 @@ func _ready():
 	if !self.enabled:
 		queue_free()
 
-func _physics_process(delta):
+
+func _physics_process(_delta):
 	if randi_range(0, 100) < rate:
 		enemy_node = enemy_scene.instantiate()
-		enemy_node.position = ((Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()) * spawnDist)+target
+		enemy_node.position = ((Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()) * spawnDist) + target
 		enemy_node.Target = target
 		self.add_child(enemy_node)
-		
+
 
 func set_rate():
 	rate = spawnRate
 
+
 func get_nearest_enemy(pos):
-	var nearest = get_child(0)
+	if self.get_child_count() == 0:
+		return null
 	
-	for child in get_children():
-		if child.position.distance_to(pos) < nearest.position.distance_to(pos):
-			nearest = child
-	
-	return nearest
+	else:
+		var nearest = self.get_child(0)
+		
+		for child in self.get_children():
+			if child.position.distance_to(pos) < nearest.position.distance_to(pos):
+				nearest = child
+		
+		return nearest
 

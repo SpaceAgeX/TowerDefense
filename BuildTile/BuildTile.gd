@@ -1,4 +1,4 @@
-extends Node2D
+class_name BuildTile extends Node2D
 
 signal clicked(name: Node2D)
 
@@ -26,7 +26,7 @@ func _ready():
 	updateType()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if Input.is_action_just_pressed("Click") and InArea:
 		print("Click on:" + str(position))
 		clicked.emit(self.name)

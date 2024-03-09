@@ -5,6 +5,7 @@ extends Control
 
 var tween
 
+
 func write_dialogue(msg, time):
 	dialogue_label.text = msg
 	

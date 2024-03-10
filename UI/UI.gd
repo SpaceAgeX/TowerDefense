@@ -6,6 +6,7 @@ extends CanvasLayer
 
 var tween
 
+var building
 
 func write_dialogue(msg, time):
 	dialogue_label.text = msg
@@ -19,6 +20,8 @@ func write_dialogue(msg, time):
 
 
 func view_stats(tile):
+	
+	building = tile
 	var sprite_frame = 1
 	var building_type = "Empty"
 	
@@ -36,7 +39,9 @@ func view_stats(tile):
 		BuildTile.Types.SILO:
 			sprite_frame = 6
 			building_type = "Silo"
+			
 	
+
 	$BuildingStats/BuildingSprite.frame = sprite_frame
 	$BuildingStats/TypeLabel.text = building_type
 	$BuildingStats/HealthLabel.text = str(tile.health) + " / " + str(tile.max_health)

@@ -48,6 +48,12 @@ script = ExtResource("4_lk6ok")
 
 [node name="UI" parent="." instance=ExtResource("1_mgneh")]
 
+[node name="Production" parent="UI/Resources" index="0"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 326.0
+offset_bottom = 49.0
+
 [connection signal="pressed" from="UI/Buttons/Town" to="." method="_on_town_pressed"]
 [connection signal="pressed" from="UI/Buttons/Factory" to="." method="_on_factory_pressed"]
 [connection signal="pressed" from="UI/Buttons/Silo" to="." method="_on_silo_pressed"]

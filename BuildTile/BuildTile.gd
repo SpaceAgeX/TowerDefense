@@ -13,8 +13,8 @@ enum Types {
 var placeable = true
 var InArea = false
 
-var health = 10
-var damage = 0
+var max_health = 10
+var health = max_health
 var cooldown = 1.5
 
 @export var type: Types = Types.EMPTY

@@ -99,11 +99,13 @@ func updateSilo():
 
 func _on_area_2d_mouse_entered():
 	InArea = true
+
+
 func _on_area_2d_mouse_exited():
 	InArea = false
 
 
-func getRates(cool,missile):
+func getRates(cool, missile):
 	cooldown = cool
 	missileTime = missile
 	print(cool)

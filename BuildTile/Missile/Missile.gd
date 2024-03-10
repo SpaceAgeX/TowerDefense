@@ -16,6 +16,7 @@ func _ready():
 	speed = global_position.distance_to(target.global_position) / time
 	dist = global_position.distance_to(target.global_position)
 
+
 func _physics_process(delta):
 	t += delta
 	if target != null:

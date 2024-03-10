@@ -1,12 +1,15 @@
 extends Node2D
 
-@onready var build_tile_scene = preload("res://BuildTile/Build_tile.tscn")
 
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 
+var coins = 100
+var enemy_parts = 0
+
 func _ready():
-	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	DisplayServer.window_set_min_size(Vector2i(1200, 800))
 	
 	randomize()
 	await get_tree().create_timer(0.1).timeout
@@ -19,12 +22,20 @@ func _ready():
 
 
 func _physics_process(_delta):
+	# Cancels Building Placement
 	if Input.is_action_just_pressed("RightClick"):
 		cancel_place()
 	
+	# Places New Build Tile
 	if Input.is_action_just_pressed("Click") and new_tile_on:
 		var mouse_position = get_global_mouse_position()
-		place_build_tile(mouse_position)
+		
+		$UI/Buttons.visible = true
+		$UI/ToggleSideBar.visible = true
+		new_tile_on = false
+		
+		var new_tile = $Buildings.place_build_tile(mouse_position)
+		new_tile.clicked.connect(on_tile_clicked)
 
 
 func cancel_place():
@@ -54,24 +65,6 @@ func on_tile_clicked(tile):
 		$UI.write_dialogue("Can't Place There", 2)
 	
 	selected_tile.updateType()
-
-
-func place_build_tile(pos):
-	var x_position = floor(pos.x/64)*16
-	var y_position = floor(pos.y/64)*16
-
-	$UI/Buttons.visible = true
-	$UI/ToggleSideBar.visible = true
-	new_tile_on = false
-	print(position, " -> ", Vector2(x_position, y_position))
-	
-	#$Buildings.set_cell(0, Vector2i(4, 0), 0, )
-	var new_tile = build_tile_scene.instantiate()
-	$Buildings.add_child(new_tile)
-	
-	new_tile.position = Vector2i(x_position+8, y_position+8)
-	new_tile.name = "NewBuildTile"
-	new_tile.clicked.connect(on_tile_clicked)
 
 
 func _on_town_pressed():

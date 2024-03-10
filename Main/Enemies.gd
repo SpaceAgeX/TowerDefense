@@ -12,6 +12,7 @@ var n = null
 @export var spawnRate = 1 # over 100 chance per frame
 @export var spawnDist = 1500
 
+@onready var Buildings = $"../Buildings"
 
 func _ready():
 	if !self.enabled:
@@ -32,17 +33,33 @@ func set_rate():
 
 func get_nearest_enemy(pos):
 	if self.get_child_count() != 0:
-		
 		var nearest = self.get_child(0)
 		
 		for child in self.get_children():
-			if child.position.distance_to(pos) < nearest.position.distance_to(pos) and !child.onTarget:
+			if child.position.distance_to(pos) < nearest.position.distance_to(pos):
 				nearest = child
 				
-		if !nearest.onTarget:
-			nearest.onTarget = true 
-			return nearest
+		return nearest
+	
+	return null
+
+
+func get_nearest_untargeted_enemy(pos):
+	var nearest_enemies = []
+	
+	if self.get_child_count() != 0:
+		nearest_enemies.append(self.get_child(0))
 		
+		for child in self.get_children():
+			if child.position.distance_to(pos) < nearest_enemies[0].position.distance_to(pos) and !child.onTarget:
+				nearest_enemies.push_front(child)
+			else:
+				nearest_enemies.push_back(child)
+		
+		if !nearest_enemies[0].onTarget:
+			return nearest_enemies[0]
+		else:
+			return nearest_enemies[1]
 	
 	return null
 

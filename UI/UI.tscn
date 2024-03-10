@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=18 format=3 uid="uid://bmcbvbgvor4d3"]
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="6_ijlg7"]
 [ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
 [ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]
+[ext_resource type="Texture2D" uid="uid://ds4u3s2adt76s" path="res://Assets/missile.png" id="10_fn3wc"]
+[ext_resource type="Texture2D" uid="uid://ceig1fts2mlg0" path="res://Assets/hourglass.png" id="11_q2uxg"]
+[ext_resource type="Texture2D" uid="uid://4myketfuwbtw" path="res://Assets/coin.png" id="12_rrsce"]
+[ext_resource type="Texture2D" uid="uid://qxfejtswmio3" path="res://Assets/Enemies.png" id="13_bqqhf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g0406"]
 font_size = 30
@@ -24,6 +28,19 @@ border_width_right = 5
 border_width_bottom = 5
 corner_radius_top_left = 15
 corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qggo4"]
+bg_color = Color(0, 0.462, 0.77, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.723072, 0.60243, 0, 1)
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+expand_margin_left = 10.0
+expand_margin_right = 30.0
 
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_q1mj0")
@@ -177,6 +194,7 @@ texture = ExtResource("7_nb8e2")
 centered = false
 
 [node name="BuildingStats" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -203,7 +221,7 @@ position = Vector2(50, 50)
 scale = Vector2(5, 5)
 texture = ExtResource("3_y6ged")
 hframes = 8
-frame = 3
+frame = 5
 
 [node name="TypeLabel" type="Label" parent="BuildingStats"]
 layout_mode = 1
@@ -212,7 +230,7 @@ offset_right = 300.0
 offset_bottom = 100.0
 theme_override_fonts/font = ExtResource("1_m3gep")
 theme_override_font_sizes/font_size = 40
-text = "Town"
+text = "Empty"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -245,6 +263,86 @@ theme_override_font_sizes/font_size = 35
 text = "10 / 10"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Missile" type="Sprite2D" parent="BuildingStats"]
+position = Vector2(50, 250)
+scale = Vector2(4, 4)
+texture = ExtResource("10_fn3wc")
+
+[node name="DamageLabel" type="Label" parent="BuildingStats"]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 300.0
+offset_bottom = 300.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 35
+text = "0 dmg"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hourglass" type="Sprite2D" parent="BuildingStats"]
+position = Vector2(48, 350)
+scale = Vector2(3, 3)
+texture = ExtResource("11_q2uxg")
+
+[node name="CooldownLabel" type="Label" parent="BuildingStats"]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 300.0
+offset_right = 300.0
+offset_bottom = 400.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 35
+text = "0 sec"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Currency" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -330.0
+offset_bottom = 230.0
+grow_horizontal = 0
+
+[node name="CoinLabel" type="Label" parent="Currency"]
+layout_mode = 1
+offset_top = 25.0
+offset_right = 250.0
+offset_bottom = 95.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_qggo4")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Coin" type="Sprite2D" parent="Currency/CoinLabel"]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("12_rrsce")
+centered = false
+offset = Vector2(-1000, -1000)
+
+[node name="EnemyPartsLabel" type="Label" parent="Currency"]
+layout_mode = 1
+offset_top = 125.0
+offset_right = 250.0
+offset_bottom = 195.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_qggo4")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Enemies" type="Sprite2D" parent="Currency/EnemyPartsLabel"]
+scale = Vector2(5, 5)
+texture = ExtResource("13_bqqhf")
+centered = false
+hframes = 11
+frame = 5
 
 [connection signal="pressed" from="ToggleSideBar" to="." method="_on_toggle_side_bar_pressed"]
 [connection signal="pressed" from="BuildingStats/CloseStatsButton" to="." method="_on_close_stats_button_pressed"]

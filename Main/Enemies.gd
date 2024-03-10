@@ -1,6 +1,6 @@
 extends Node2D
 
-var enemy_scene = preload("res://Enemy.tscn")
+var enemy_scene = preload("res://Enemy/Enemy.tscn")
 var enemy_node = null
 
 var target = Vector2.ZERO
@@ -10,7 +10,7 @@ var n = null
 @export var enabled = true
 @export var rateIncrease = 0 #per frame
 @export var spawnRate = 1 # over 100 chance per frame
-@export var spawnDist = 750
+@export var spawnDist = 1500
 
 
 func _ready():

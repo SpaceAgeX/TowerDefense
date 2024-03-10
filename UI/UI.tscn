@@ -2,10 +2,10 @@
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
-[ext_resource type="StyleBox" path="res://UI/ButtonStyleBox.tres" id="3_cjypk"]
+[ext_resource type="StyleBox" uid="uid://cm7hkebf6h7k" path="res://UI/ButtonStyleBox.tres" id="3_cjypk"]
 [ext_resource type="Texture2D" uid="uid://dlio1f13tgfvj" path="res://Assets/Buildings.png" id="3_y6ged"]
-[ext_resource type="StyleBox" path="res://UI/ButtonDisabledStyleBox.tres" id="4_thrgd"]
-[ext_resource type="StyleBox" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
+[ext_resource type="StyleBox" uid="uid://b6be48m2snw5p" path="res://UI/ButtonDisabledStyleBox.tres" id="4_thrgd"]
+[ext_resource type="StyleBox" uid="uid://5umtrmyq5m0p" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
 [ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="6_ijlg7"]
 [ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
 [ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]
@@ -16,10 +16,6 @@ font_size = 30
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqbiq"]
 bg_color = Color(0.509804, 0.298039, 1, 1)
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugl2p"]
 bg_color = Color(0.75, 0, 0, 1)
 border_width_left = 5
@@ -30,10 +26,6 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 
 [node name="UI" type="CanvasLayer"]
-<<<<<<< HEAD
->>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
-=======
->>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 script = ExtResource("1_q1mj0")
 
 [node name="HUD" type="Control" parent="."]
@@ -239,7 +231,7 @@ text = "X"
 
 [node name="HeartIcon" type="Sprite2D" parent="BuildingStats"]
 position = Vector2(50, 150)
-scale = Vector2(0.18, 0.18)
+scale = Vector2(6, 6)
 texture = ExtResource("9_kaulm")
 
 [node name="HealthLabel" type="Label" parent="BuildingStats"]

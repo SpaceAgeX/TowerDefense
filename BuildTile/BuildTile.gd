@@ -3,7 +3,7 @@ class_name BuildTile extends Node2D
 
 signal clicked(name: Node2D)
 
-var missile = preload("res://Missile.tscn")
+var missile = preload("res://BuildTile/Missile/Missile.tscn")
 var n 
 
 enum Types {
@@ -16,7 +16,7 @@ enum Types {
 var placeable = true
 var InArea = false
 
-<<<<<<< HEAD
+
 
 var max_health = 10
 var health = max_health
@@ -24,14 +24,6 @@ var damage = 0
 var cooldown = 0.5
 var missileTime = 1.0
 
-
-
-
-=======
-var max_health = 10
-var health = max_health
-var cooldown = 1.5
->>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 
 @export var type: Types = Types.EMPTY
 

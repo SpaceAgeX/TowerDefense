@@ -1,6 +1,6 @@
 extends Node2D
 
-var enemy_scene = preload("res://Enemy.tscn")
+var enemy_scene = preload("res://Enemy/Enemy.tscn")
 var enemy_node = null
 
 var target = Vector2.ZERO
@@ -10,7 +10,7 @@ var n = null
 @export var enabled = true
 @export var rateIncrease = 0 #per frame
 @export var spawnRate = 1 # over 100 chance per frame
-@export var spawnDist = 750
+@export var spawnDist = 1500
 
 
 func _ready():
@@ -31,15 +31,18 @@ func set_rate():
 
 
 func get_nearest_enemy(pos):
-	if self.get_child_count() == 0:
-		return null
-	
-	else:
+	if self.get_child_count() != 0:
+		
 		var nearest = self.get_child(0)
 		
 		for child in self.get_children():
-			if child.position.distance_to(pos) < nearest.position.distance_to(pos):
+			if child.position.distance_to(pos) < nearest.position.distance_to(pos) and !child.onTarget:
 				nearest = child
+				
+		if !nearest.onTarget:
+			nearest.onTarget = true 
+			return nearest
 		
-		return nearest
+	
+	return null
 

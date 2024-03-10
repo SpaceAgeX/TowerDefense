@@ -7,6 +7,7 @@ var health = 10.0
 var damage = 0
 var type = 0
 
+var onTarget = false
 @export var Target = Vector2.ZERO
 
 func  _ready():

@@ -6,6 +6,8 @@ var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 
 func _ready():
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	
 	randomize()
 	await get_tree().create_timer(0.1).timeout
 	
@@ -43,6 +45,9 @@ func on_tile_clicked(tile):
 		$UI/Buttons.visible = true
 		$UI/ToggleSideBar.visible = true
 		on = BuildTile.Types.EMPTY
+	
+	if on == BuildTile.Types.EMPTY:
+		$UI.view_stats(selected_tile)
 	
 	else:
 		print("Can't Place Here")

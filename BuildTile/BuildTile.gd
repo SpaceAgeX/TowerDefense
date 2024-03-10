@@ -3,6 +3,9 @@ class_name BuildTile extends Node2D
 
 signal clicked(name: Node2D)
 
+var missile = preload("res://Missile.tscn")
+var n 
+
 enum Types {
 	EMPTY,
 	TOWN,
@@ -13,9 +16,22 @@ enum Types {
 var placeable = true
 var InArea = false
 
-var health = 10
+<<<<<<< HEAD
+
+var max_health = 10
+var health = max_health
 var damage = 0
+var cooldown = 0.5
+var missileTime = 1.0
+
+
+
+
+=======
+var max_health = 10
+var health = max_health
 var cooldown = 1.5
+>>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 
 @export var type: Types = Types.EMPTY
 
@@ -29,7 +45,7 @@ func _ready():
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("Click") and InArea:
-		print("Click on:" + str(position))
+		#print("Click on:" + str(position))
 		clicked.emit(self.name)
 	
 	match type:
@@ -66,11 +82,16 @@ func updateType():
 
 
 func updateSilo():
-	await get_tree().create_timer(cooldown + 0.1).timeout
+	await get_tree().create_timer(cooldown + missileTime).timeout
 	var nearest_enemy = Enemies.get_nearest_enemy(self.position)
 	
 	if nearest_enemy != null:
-		nearest_enemy.targeted(cooldown)
+		nearest_enemy.targeted(missileTime)
+		
+		n = missile.instantiate()
+		n.target = nearest_enemy
+		n.time = missileTime
+		add_child(n)
 	
 	updateSilo()
 

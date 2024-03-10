@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bc6dr4r6dcp70"]
+
+[ext_resource type="Script" path="res://Missile.gd" id="1_ghn83"]
+[ext_resource type="Texture2D" uid="uid://ds4u3s2adt76s" path="res://Assets/missile.png" id="2_dalay"]
+
+[node name="Missile" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_ghn83")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("2_dalay")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

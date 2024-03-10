@@ -7,7 +7,7 @@ var new_tile_on = false
 
 var production = 0
 var enemyCount = 0
-var gold = 0
+var gold = 10
 
 
 var Silos = []
@@ -22,6 +22,8 @@ func _ready():
 	
 	$UI/Buttons/Factory.disabled = true
 	$UI/Buttons/Silo.disabled = true
+	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+	
 	
 
 
@@ -99,15 +101,28 @@ func _on_town_pressed():
 
 
 func _on_factory_pressed():
-	$UI/Buttons.visible = false
-	$UI/ToggleSideBar.visible = false
-	on = BuildTile.Types.FACTORY
+	if gold >= 10:
+		$UI/Buttons.visible = false
+		$UI/ToggleSideBar.visible = false
+		on = BuildTile.Types.FACTORY
+		gold -= 10
+		$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+		
+		
+	else: 
+		$UI.write_dialogue("You Need 10 Gold", 3)
 
 
 func _on_silo_pressed():
-	$UI/Buttons.visible = false
-	$UI/ToggleSideBar.visible = false
-	on = BuildTile.Types.SILO
+	if gold >= 10:
+		$UI/Buttons.visible = false
+		$UI/ToggleSideBar.visible = false
+		on = BuildTile.Types.SILO
+		gold -= 10
+		$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+		
+	else: 
+		$UI.write_dialogue("You Need 10 Gold", 3)
 
 
 func _on_new_tile_pressed():
@@ -130,13 +145,11 @@ func createTown(tile):
 
 func killed():
 	enemyCount += 1
-	gold = enemyCount
+	gold += 5
 	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
 
 
 func updateTiles():
-	var productionEach = production/len(Silos)
-	for x in Silos:
-		get_node("Buildings/" + str(x)).getRates(3*(1/productionEach),1)
-	
+	pass
+	# find Equation decide the missile cooldown based on the amount of production
 			

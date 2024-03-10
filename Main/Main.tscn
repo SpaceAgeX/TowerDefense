@@ -49,7 +49,6 @@ script = ExtResource("4_lk6ok")
 [node name="UI" parent="." instance=ExtResource("1_mgneh")]
 
 [node name="Production" parent="UI/Resources" index="0"]
-layout_mode = 0
 offset_left = 0.0
 offset_top = 0.0
 offset_right = 326.0

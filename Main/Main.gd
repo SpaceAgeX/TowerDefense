@@ -5,6 +5,12 @@ extends Node2D
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 
+var production = 0
+var enemyCount = 0
+var gold = 10
+
+
+var Silos = []
 func _ready():
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
 	
@@ -16,6 +22,9 @@ func _ready():
 	
 	$UI/Buttons/Factory.disabled = true
 	$UI/Buttons/Silo.disabled = true
+	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+	
+	
 
 
 func _physics_process(_delta):
@@ -42,9 +51,19 @@ func on_tile_clicked(tile):
 		if on == BuildTile.Types.TOWN:
 			createTown(selected_tile)
 		
+		if on == BuildTile.Types.FACTORY:
+			production += selected_tile.productionRate
+			$UI/Resources/Production.text = "Production: " + str(production) + "/sec"
+			
+		if on == BuildTile.Types.SILO:
+			Silos.append(tile)
+		
 		$UI/Buttons.visible = true
 		$UI/ToggleSideBar.visible = true
+		
 		on = BuildTile.Types.EMPTY
+		
+		
 	
 	if on == BuildTile.Types.EMPTY:
 		$UI.view_stats(selected_tile)
@@ -52,7 +71,8 @@ func on_tile_clicked(tile):
 	else:
 		print("Can't Place Here")
 		$UI.write_dialogue("Can't Place There", 2)
-	
+		
+	updateTiles()
 	selected_tile.updateType()
 
 
@@ -81,15 +101,28 @@ func _on_town_pressed():
 
 
 func _on_factory_pressed():
-	$UI/Buttons.visible = false
-	$UI/ToggleSideBar.visible = false
-	on = BuildTile.Types.FACTORY
+	if gold >= 10:
+		$UI/Buttons.visible = false
+		$UI/ToggleSideBar.visible = false
+		on = BuildTile.Types.FACTORY
+		gold -= 10
+		$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+		
+		
+	else: 
+		$UI.write_dialogue("You Need 10 Gold", 3)
 
 
 func _on_silo_pressed():
-	$UI/Buttons.visible = false
-	$UI/ToggleSideBar.visible = false
-	on = BuildTile.Types.SILO
+	if gold >= 10:
+		$UI/Buttons.visible = false
+		$UI/ToggleSideBar.visible = false
+		on = BuildTile.Types.SILO
+		gold -= 10
+		$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+		
+	else: 
+		$UI.write_dialogue("You Need 10 Gold", 3)
 
 
 func _on_new_tile_pressed():
@@ -107,3 +140,16 @@ func createTown(tile):
 	$UI/Buttons/Silo.disabled = false
 	$Enemies.target = town_position
 	$Enemies.set_rate()
+
+
+
+func killed():
+	enemyCount += 1
+	gold += 5
+	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+
+
+func updateTiles():
+	pass
+	# find Equation decide the missile cooldown based on the amount of production
+			

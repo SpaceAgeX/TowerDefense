@@ -1,7 +1,8 @@
 extends CharacterBody2D
 
+signal killed
 
-const SPEED = 50.0
+var SPEED = randi_range(25,100)
 
 var health = 10.0
 var damage = 0
@@ -11,6 +12,7 @@ var onTarget = false
 @export var Target = Vector2.ZERO
 
 func  _ready():
+	
 	type = randi_range(0, 5)
 	
 	if type > 4 and type < 8:
@@ -37,4 +39,5 @@ func _physics_process(_delta):
 func targeted(time):
 	$Target.visible = true
 	await get_tree().create_timer(time).timeout
+	killed.emit()
 	queue_free()

@@ -16,7 +16,10 @@ font_size = 30
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqbiq"]
 bg_color = Color(0.509804, 0.298039, 1, 1)
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugl2p"]
 bg_color = Color(0.75, 0, 0, 1)
 border_width_left = 5
@@ -27,6 +30,9 @@ corner_radius_top_left = 15
 corner_radius_top_right = 15
 
 [node name="UI" type="CanvasLayer"]
+<<<<<<< HEAD
+>>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
+=======
 >>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 script = ExtResource("1_q1mj0")
 

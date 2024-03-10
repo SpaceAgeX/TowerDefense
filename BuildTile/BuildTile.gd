@@ -16,6 +16,7 @@ enum Types {
 var placeable = true
 var InArea = false
 
+<<<<<<< HEAD
 
 var max_health = 10
 var health = max_health
@@ -26,6 +27,11 @@ var missileTime = 1.0
 
 
 
+=======
+var max_health = 10
+var health = max_health
+var cooldown = 1.5
+>>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 
 @export var type: Types = Types.EMPTY
 

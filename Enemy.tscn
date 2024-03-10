@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgcw2j0j7rouw"]
+[gd_scene load_steps=5 format=3 uid="uid://bn5rypc3i0gom"]
 
 [ext_resource type="Script" path="res://Enemy.gd" id="1_28cpw"]
 [ext_resource type="Texture2D" uid="uid://62e0h40yc1ak" path="res://Assets/Shadow.png" id="2_io3jh"]
 [ext_resource type="Texture2D" uid="uid://qxfejtswmio3" path="res://Assets/Enemies.png" id="2_tbtjx"]
-[ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="4_i0ix6"]
+[ext_resource type="Texture2D" uid="uid://by7g5lr7qu1vs" path="res://Assets/targeted.png" id="4_jrg8w"]
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_28cpw")
@@ -21,17 +21,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("2_tbtjx")
 hframes = 11
 
-[node name="Target" type="NinePatchRect" parent="."]
+[node name="Target" type="Sprite2D" parent="."]
 visible = false
-texture_filter = 1
-offset_left = -32.0
-offset_top = -32.0
-scale = Vector2(2, 2)
-texture = ExtResource("4_i0ix6")
-region_rect = Rect2(0, 0, 16, 16)
-patch_margin_left = 7
-patch_margin_top = 7
-patch_margin_right = 7
-patch_margin_bottom = 7
-
-[node name="Timer" type="Timer" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_jrg8w")

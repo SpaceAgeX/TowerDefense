@@ -1,18 +1,19 @@
 extends CharacterBody2D
 
 
+var target: Node2D
+var time: float
+var speed: float
+var dist: float
 
-var target 
-var time
-
-var dir 
-var speed
+var dir
 var t = 0
-var dist
+
+
 func _ready():
 	$Timer.wait_time = time
 	$Timer.start()
-	speed = global_position.distance_to(target.global_position)/time
+	speed = global_position.distance_to(target.global_position) / time
 	dist = global_position.distance_to(target.global_position)
 
 func _physics_process(delta):

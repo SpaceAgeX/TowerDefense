@@ -258,6 +258,7 @@ offset_bottom = 224.0
 grow_horizontal = 0
 
 [node name="Production" type="Label" parent="Resources"]
+layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 334.0

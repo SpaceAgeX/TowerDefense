@@ -17,8 +17,11 @@ func _ready():
 
 func _physics_process(delta):
 	t += delta
-	$Sprite2D.global_position = global_position.lerp(target.global_position, t)
-	look_at(target.position)
+	if target != null:
+		$Sprite2D.global_position = global_position.lerp(target.global_position, t)
+		look_at(target.position)
+	else:
+		queue_free()
 	
 
 

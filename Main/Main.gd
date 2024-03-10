@@ -5,6 +5,12 @@ extends Node2D
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 
+var production = 0
+var enemyCount = 0
+var gold = 0
+
+
+var Silos = []
 func _ready():
 	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
 	
@@ -16,6 +22,7 @@ func _ready():
 	
 	$UI/Buttons/Factory.disabled = true
 	$UI/Buttons/Silo.disabled = true
+	
 
 
 func _physics_process(_delta):
@@ -42,9 +49,19 @@ func on_tile_clicked(tile):
 		if on == BuildTile.Types.TOWN:
 			createTown(selected_tile)
 		
+		if on == BuildTile.Types.FACTORY:
+			production += selected_tile.productionRate
+			$UI/Resources/Production.text = "Production: " + str(production) + "/sec"
+			
+		if on == BuildTile.Types.SILO:
+			Silos.append(tile)
+		
 		$UI/Buttons.visible = true
 		$UI/ToggleSideBar.visible = true
+		
 		on = BuildTile.Types.EMPTY
+		
+		
 	
 	if on == BuildTile.Types.EMPTY:
 		$UI.view_stats(selected_tile)
@@ -52,7 +69,8 @@ func on_tile_clicked(tile):
 	else:
 		print("Can't Place Here")
 		$UI.write_dialogue("Can't Place There", 2)
-	
+		
+	updateTiles()
 	selected_tile.updateType()
 
 
@@ -107,3 +125,18 @@ func createTown(tile):
 	$UI/Buttons/Silo.disabled = false
 	$Enemies.target = town_position
 	$Enemies.set_rate()
+
+
+
+func killed():
+	enemyCount += 1
+	gold = enemyCount
+	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+
+
+func updateTiles():
+	var productionEach = production/len(Silos)
+	for x in Silos:
+		get_node("Buildings/" + str(x)).getRates(3*(1/productionEach),1)
+	
+			

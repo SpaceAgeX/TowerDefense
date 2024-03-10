@@ -47,6 +47,10 @@ y_sort_enabled = true
 script = ExtResource("4_lk6ok")
 
 [node name="UI" parent="." instance=ExtResource("1_mgneh")]
+offset_left = -576.0
+offset_top = -324.0
+offset_right = 576.0
+offset_bottom = 324.0
 
 [connection signal="pressed" from="UI/Buttons/Town" to="." method="_on_town_pressed"]
 [connection signal="pressed" from="UI/Buttons/Factory" to="." method="_on_factory_pressed"]

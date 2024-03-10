@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=13 format=3 uid="uid://bmcbvbgvor4d3"]
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
 [ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="6_ijlg7"]
 [ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
+[ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g0406"]
 font_size = 30
@@ -15,19 +16,26 @@ font_size = 30
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqbiq"]
 bg_color = Color(0.509804, 0.298039, 1, 1)
 
-[node name="UI" type="Control"]
-z_index = 2
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugl2p"]
+bg_color = Color(0.75, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[node name="UI" type="CanvasLayer"]
+>>>>>>> 5876d32dbd1c9b0d1cb26b021a62c2ec2cec64be
 script = ExtResource("1_q1mj0")
 
 [node name="HUD" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 0
-offset_right = 1153.0
-offset_bottom = 170.0
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 152.0
+grow_horizontal = 2
 
 [node name="Display" type="Label" parent="HUD"]
 layout_mode = 1
@@ -46,7 +54,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Buttons" type="Control" parent="."]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 396.0
@@ -159,7 +167,6 @@ texture = ExtResource("6_ijlg7")
 centered = false
 
 [node name="ToggleSideBar" type="Button" parent="."]
-layout_mode = 1
 offset_left = 25.0
 offset_top = 10.0
 offset_right = 100.0
@@ -171,4 +178,75 @@ scale = Vector2(3, 3)
 texture = ExtResource("7_nb8e2")
 centered = false
 
+[node name="BuildingStats" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -310.0
+offset_top = -390.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="BuildingStats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.462, 0.77, 1)
+metadata/_edit_lock_ = true
+
+[node name="BuildingSprite" type="Sprite2D" parent="BuildingStats"]
+position = Vector2(50, 50)
+scale = Vector2(5, 5)
+texture = ExtResource("3_y6ged")
+hframes = 8
+frame = 3
+
+[node name="TypeLabel" type="Label" parent="BuildingStats"]
+layout_mode = 1
+offset_left = 100.0
+offset_right = 300.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+text = "Town"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CloseStatsButton" type="Button" parent="BuildingStats"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -75.0
+offset_top = -75.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_ugl2p")
+text = "X"
+
+[node name="HeartIcon" type="Sprite2D" parent="BuildingStats"]
+position = Vector2(50, 150)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("9_kaulm")
+
+[node name="HealthLabel" type="Label" parent="BuildingStats"]
+layout_mode = 1
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 300.0
+offset_bottom = 200.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 35
+text = "10 / 10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="ToggleSideBar" to="." method="_on_toggle_side_bar_pressed"]
+[connection signal="pressed" from="BuildingStats/CloseStatsButton" to="." method="_on_close_stats_button_pressed"]

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-signal killed(enemy: CharacterBody2D)
+signal killed
 
 
 var SPEED = randi_range(25,100)
@@ -47,10 +47,9 @@ func take_damage(dmg, time):
 
 	health -= dmg
   
-  if health <= 0:
-		Main.enemy_parts += 1
-		killed.emit(self)
+	if health <= 0:
+		killed.emit()
 		self.queue_free()
-    
+	
 	onTarget = false
 

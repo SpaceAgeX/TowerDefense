@@ -22,7 +22,7 @@ var max_health = 10
 var health = max_health
 
 #For Silos
-var damage = 0
+var damage = 5
 var cooldown = 3
 
 var missileTime = 1.0
@@ -87,7 +87,7 @@ func updateSilo():
 	$Timer.wait_time = cooldown + missileTime
 	$Timer.start()
 	await $Timer.timeout
-	var nearest_enemy = Enemies.get_nearest_enemy(self.position)
+	var nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
 	
 	if nearest_enemy != null:
 		nearest_enemy.onTarget = true
@@ -115,7 +115,7 @@ func _on_area_2d_mouse_exited():
 	InArea = false
 
 
-func getRates(cool,missile):
+func getRates(cool,time):
 	cooldown = cool
-	missileTime = missile
+	missileTime = time
 	print(cool)

@@ -10,7 +10,7 @@ var tween
 var building
 
 func _process(_delta):
-	$Currency/CoinLabel.text = str(Main.coins)
+	$Currency/Production.text = str(Main.production)
 	$Currency/EnemyPartsLabel.text = str(Main.enemy_parts)
 
 

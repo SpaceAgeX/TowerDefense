@@ -15,11 +15,20 @@ var missile = preload("res://BuildTile/Missile/Missile.tscn")
 var placeable = true
 var InArea = false
 
+
+
+#General
 var max_health = 10
 var health = max_health
-var damage = 5
-var cooldown = 0.5
+
+#For Silos
+var damage = 0
+var cooldown = 3
+
 var missileTime = 1.0
+
+#For Factories
+var productionRate = 5
 
 
 @export var type: Types = Types.EMPTY
@@ -73,10 +82,12 @@ func updateType():
 			updateSilo()
 
 
-func updateSilo(prev_nearest_enemy = null):
-	await get_tree().create_timer(cooldown + missileTime).timeout
-	
-	var nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
+
+func updateSilo():
+	$Timer.wait_time = cooldown + missileTime
+	$Timer.start()
+	await $Timer.timeout
+	var nearest_enemy = Enemies.get_nearest_enemy(self.position)
 	
 	if nearest_enemy != null:
 		nearest_enemy.onTarget = true
@@ -100,7 +111,11 @@ func updateFactory():
 
 func _on_area_2d_mouse_entered():
 	InArea = true
-
-
 func _on_area_2d_mouse_exited():
 	InArea = false
+
+
+func getRates(cool,missile):
+	cooldown = cool
+	missileTime = missile
+	print(cool)

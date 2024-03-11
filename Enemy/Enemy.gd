@@ -1,8 +1,10 @@
 extends CharacterBody2D
 
+
 signal killed(enemy: CharacterBody2D)
 
-const SPEED = 50.0
+
+var SPEED = randi_range(25,100)
 
 var onTarget = false
 var health = 10.0
@@ -13,6 +15,7 @@ var type = 0
 @onready var Main = get_tree().get_current_scene()
 
 func  _ready():
+	
 	type = randi_range(0, 5)
 	
 	if type > 4 and type < 8:
@@ -35,14 +38,19 @@ func _physics_process(_delta):
 	
 	move_and_slide()
 	
-	if health <= 0:
-		Main.enemy_parts += 1
-		killed.emit(self)
-		self.queue_free()
+	
 	
 	
 func take_damage(dmg, time):
 	$Target.visible = true
 	await get_tree().create_timer(time).timeout
+
 	health -= dmg
+  
+  if health <= 0:
+		Main.enemy_parts += 1
+		killed.emit(self)
+		self.queue_free()
+    
 	onTarget = false
+

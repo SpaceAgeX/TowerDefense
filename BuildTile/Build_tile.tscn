@@ -15,6 +15,7 @@ script = ExtResource("1_cv8ei")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_forbi")
 
+
 [node name="Buildings" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_bq558")

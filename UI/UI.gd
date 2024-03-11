@@ -3,10 +3,16 @@ extends CanvasLayer
 
 @onready var dialogue_label = $HUD/Display
 @onready var side_bar = $Buttons
+@onready var Main = $".."
 
 var tween
 
 var building
+
+func _process(_delta):
+	$Currency/CoinLabel.text = str(Main.coins)
+	$Currency/EnemyPartsLabel.text = str(Main.enemy_parts)
+
 
 func write_dialogue(msg, time):
 	dialogue_label.text = msg
@@ -45,6 +51,8 @@ func view_stats(tile):
 	$BuildingStats/BuildingSprite.frame = sprite_frame
 	$BuildingStats/TypeLabel.text = building_type
 	$BuildingStats/HealthLabel.text = str(tile.health) + " / " + str(tile.max_health)
+	$BuildingStats/DamageLabel.text = str(tile.damage) + " dmg"
+	$BuildingStats/CooldownLabel.text = str(tile.cooldown) + " sec"
 
 
 func _on_toggle_side_bar_pressed():

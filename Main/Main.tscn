@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cewebeurf2hqp"]
+[gd_scene load_steps=11 format=3 uid="uid://cewebeurf2hqp"]
 
 [ext_resource type="PackedScene" uid="uid://bmcbvbgvor4d3" path="res://UI/UI.tscn" id="1_mgneh"]
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_s62b8"]
 [ext_resource type="Texture2D" uid="uid://bg41ximuiq3uj" path="res://Assets/Grass.png" id="2_kpoyc"]
 [ext_resource type="PackedScene" uid="uid://cx56wmhce6ys3" path="res://BuildTile/Build_tile.tscn" id="3_oima4"]
+[ext_resource type="Script" path="res://Main/Buildings.gd" id="4_ggrqb"]
 [ext_resource type="Script" path="res://Main/Enemies.gd" id="4_lk6ok"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sxfjl"]
@@ -41,6 +42,7 @@ scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_g0mjq")
 format = 2
 layer_0/tile_data = PackedInt32Array(-3, 0, 65536, 65533, 0, 65536, -65538, 0, 65536, -2, 0, 65536, 65534, 0, 65536, 131070, 0, 65536, -131073, 0, 65536, -65537, 0, 65536, -1, 0, 65536, 65535, 0, 65536, 131071, 0, 65536, 196607, 0, 65536, -196608, 0, 65536, -131072, 0, 65536, -65536, 0, 65536, 0, 0, 65536, 65536, 0, 65536, 131072, 0, 65536, -131071, 0, 65536, -65535, 0, 65536, 1, 0, 65536, 65537, 0, 65536, 2, 0, 65536, 131069, 0, 65536, 196606, 0, 65536, 131073, 0, 65536, 65538, 0, 65536, -131070, 0, 65536, -196607, 0, 65536, -131074, 0, 65536, -65539, 0, 65536, -65534, 0, 65536)
+script = ExtResource("4_ggrqb")
 
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true

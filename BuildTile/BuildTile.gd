@@ -3,11 +3,6 @@ class_name BuildTile extends Node2D
 
 signal clicked(name: Node2D)
 
-var missile = preload("res://BuildTile/Missile/Missile.tscn")
-var n 
-
-var status = 0 #The Value Given to the UI
-
 enum Types {
 	EMPTY,
 	TOWN,
@@ -15,8 +10,11 @@ enum Types {
 	SILO,
 }
 
+var missile = preload("res://BuildTile/Missile/Missile.tscn")
+
 var placeable = true
 var InArea = false
+
 
 
 #General
@@ -26,6 +24,7 @@ var health = max_health
 #For Silos
 var damage = 0
 var cooldown = 3
+
 var missileTime = 1.0
 
 #For Factories
@@ -34,6 +33,7 @@ var productionRate = 5
 
 @export var type: Types = Types.EMPTY
 
+@onready var Main = get_tree().get_current_scene()
 @onready var Buildings = $Buildings
 @onready var Enemies = $"../../Enemies"
 
@@ -72,12 +72,15 @@ func updateType():
 			Buildings.visible = true
 			Buildings.frame = 3
 			placeable = false
+			cooldown = 2
+			updateFactory()
 		
 		Types.SILO:
 			Buildings.visible = true
 			Buildings.frame = 6
 			placeable = false
 			updateSilo()
+
 
 
 func updateSilo():
@@ -87,14 +90,23 @@ func updateSilo():
 	var nearest_enemy = Enemies.get_nearest_enemy(self.position)
 	
 	if nearest_enemy != null:
-		nearest_enemy.targeted(missileTime)
+		nearest_enemy.onTarget = true
+		nearest_enemy.take_damage(self.damage, missileTime)
 		
-		n = missile.instantiate()
+		var n = missile.instantiate()
 		n.target = nearest_enemy
 		n.time = missileTime
 		add_child(n)
 	
 	updateSilo()
+
+
+
+func updateFactory():
+	await get_tree().create_timer(cooldown).timeout
+	Main.coins += 1
+	
+	updateFactory()
 
 
 func _on_area_2d_mouse_entered():

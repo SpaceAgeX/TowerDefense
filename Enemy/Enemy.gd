@@ -51,5 +51,6 @@ func take_damage(dmg, time):
 		killed.emit()
 		self.queue_free()
 	
+	$Target.visible = false
 	onTarget = false
 

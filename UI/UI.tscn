@@ -10,8 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
 [ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]
 [ext_resource type="Texture2D" uid="uid://ds4u3s2adt76s" path="res://Assets/missile.png" id="10_fn3wc"]
-[ext_resource type="Texture2D" uid="uid://ceig1fts2mlg0" path="res://Assets/hourglass.png" id="11_q2uxg"]
-[ext_resource type="Texture2D" uid="uid://4myketfuwbtw" path="res://Assets/coin.png" id="12_rrsce"]
+[ext_resource type="Texture2D" path="res://Assets/hourglass.png" id="11_q2uxg"]
+[ext_resource type="Texture2D" path="res://Assets/coin.png" id="12_rrsce"]
 [ext_resource type="Texture2D" uid="uid://qxfejtswmio3" path="res://Assets/Enemies.png" id="13_bqqhf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g0406"]

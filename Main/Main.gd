@@ -151,6 +151,7 @@ func killed():
 
 
 func updateTiles():
-	pass
-	# find Equation decide the missile cooldown based on the amount of production
-			
+	if len(Silos) != 0:
+		var productionEach = production/len(Silos)
+		for x in Silos:
+			get_node("Buildings/" + str(x)).getRates((10/(productionEach+1)),1)

@@ -108,5 +108,9 @@ func _on_area_2d_mouse_exited():
 
 
 func getRates(cool,time):
+	
+	if !$Timer.is_stopped():
+		if $Timer.wait_time > cool:
+			$Timer.wait_time = cool
 	cooldown = cool
 	missileTime = time

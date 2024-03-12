@@ -58,7 +58,7 @@ func view_stats(tile):
 	$BuildingStats/TypeLabel.text = building_type
 	$BuildingStats/HealthLabel.text = str(tile.health) + " / " + str(tile.max_health)
 	$BuildingStats/DamageLabel.text = str(tile.damage) + " dmg"
-	$BuildingStats/CooldownLabel.text = str(tile.cooldown) + " sec"
+	$BuildingStats/CooldownLabel.text = str(tile.cooldown+tile.missileTime) + " sec"
 
 
 func _on_toggle_side_bar_pressed():

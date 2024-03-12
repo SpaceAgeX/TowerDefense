@@ -45,6 +45,7 @@ layer_0/tile_data = PackedInt32Array(-3, 0, 65536, 65533, 0, 65536, -65538, 0, 6
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4_lk6ok")
+spawnDist = 750
 
 [node name="UI" parent="." instance=ExtResource("1_mgneh")]
 

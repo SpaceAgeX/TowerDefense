@@ -71,12 +71,13 @@ func on_tile_clicked(tile):
 			production += selected_tile.productionRate
 			enemy_parts -= 10
 			UI.updateCurrency(production, enemy_parts)
+			updateTiles()
 			
 		if on == BuildTile.Types.SILO:
 			Silos.append(tile)
 			enemy_parts -= 10
 			UI.updateCurrency(production, enemy_parts)
-			
+			updateTiles()
 		
 		UI.toggleSideBar(true)
 		
@@ -91,7 +92,7 @@ func on_tile_clicked(tile):
 		print("Can't Place Here")
 		UI.write_dialogue("Can't Place There", 2)
 		
-	updateTiles()
+	
 	selected_tile.updateType()
 
 

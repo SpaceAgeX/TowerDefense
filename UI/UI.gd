@@ -9,9 +9,7 @@ var tween
 
 var building
 
-func _process(_delta):
-	$Currency/Production.text = str(Main.production)
-	$Currency/EnemyPartsLabel.text = str(Main.enemy_parts)
+
 
 
 func write_dialogue(msg, time):
@@ -24,6 +22,14 @@ func write_dialogue(msg, time):
 	tween = get_tree().create_tween()
 	tween.tween_property(dialogue_label, "modulate", Color.TRANSPARENT, time).set_trans(Tween.TRANS_BACK)
 
+
+func updateCurrency(Production, EnemyParts):
+	$Currency/Production.text = str(Main.production)
+	$Currency/EnemyPartsLabel.text = str(Main.enemy_parts)
+
+func toggleSideBar(value):
+		$Buttons.visible = value
+		$ToggleSideBar.visible = value
 
 func view_stats(tile):
 	

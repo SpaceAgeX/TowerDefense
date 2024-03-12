@@ -64,24 +64,21 @@ func updateType():
 			Buildings.visible = false
 		
 		Types.TOWN:
-			Buildings.visible = true
-			Buildings.frame = 0
-			placeable = false
+			setBuilding(0)
 		
 		Types.FACTORY:
-			Buildings.visible = true
-			Buildings.frame = 3
-			placeable = false
-			cooldown = 2
-			updateFactory()
+			setBuilding(3)
+	
 		
 		Types.SILO:
-			Buildings.visible = true
-			Buildings.frame = 6
-			placeable = false
+			setBuilding(6)
+			
 			updateSilo()
-
-
+			
+func setBuilding(frame):
+	Buildings.visible = true
+	Buildings.frame = frame
+	placeable = false
 
 func updateSilo():
 	$Timer.wait_time = cooldown + missileTime
@@ -102,11 +99,6 @@ func updateSilo():
 
 
 
-func updateFactory():
-	await get_tree().create_timer(cooldown).timeout
-	Main.coins += 1
-	
-	updateFactory()
 
 
 func _on_area_2d_mouse_entered():
@@ -118,4 +110,3 @@ func _on_area_2d_mouse_exited():
 func getRates(cool,time):
 	cooldown = cool
 	missileTime = time
-	print(cool)

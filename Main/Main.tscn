@@ -50,6 +50,15 @@ script = ExtResource("4_lk6ok")
 
 [node name="UI" parent="." instance=ExtResource("1_mgneh")]
 
+[node name="Factory" parent="UI/Buttons" index="2"]
+disabled = true
+
+[node name="Silo" parent="UI/Buttons" index="3"]
+disabled = true
+
+[node name="Tile" parent="UI/Buttons" index="4"]
+disabled = true
+
 [connection signal="pressed" from="UI/Buttons/Town" to="." method="_on_town_pressed"]
 [connection signal="pressed" from="UI/Buttons/Factory" to="." method="_on_factory_pressed"]
 [connection signal="pressed" from="UI/Buttons/Silo" to="." method="_on_silo_pressed"]

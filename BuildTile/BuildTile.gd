@@ -55,7 +55,7 @@ func _physics_process(_delta):
 		Types.FACTORY:
 			pass
 		Types.SILO:
-			pass
+			$ProgressBar.value = 100-($Timer.time_left/$Timer.wait_time)*100
 
 
 func updateType():
@@ -72,7 +72,7 @@ func updateType():
 		
 		Types.SILO:
 			setBuilding(6)
-			
+			$ProgressBar.visible = true
 			updateSilo()
 			
 func setBuilding(frame):
@@ -110,8 +110,10 @@ func _on_area_2d_mouse_exited():
 func getRates(cool,time):
 	
 	if !$Timer.is_stopped():
+		$Timer.stop()
 		if $Timer.wait_time > cool:
 			$Timer.wait_time = cool
+			$Timer.start()
 			print(cool)
 	cooldown = cool
 	missileTime = time

@@ -121,6 +121,7 @@ theme_override_styles/hover = ExtResource("4_wr4ws")
 theme_override_styles/pressed = ExtResource("3_cjypk")
 theme_override_styles/disabled = ExtResource("4_thrgd")
 theme_override_styles/focus = ExtResource("3_cjypk")
+disabled = true
 text = "Factory"
 alignment = 2
 
@@ -145,6 +146,7 @@ theme_override_styles/hover = ExtResource("4_wr4ws")
 theme_override_styles/pressed = ExtResource("3_cjypk")
 theme_override_styles/disabled = ExtResource("4_thrgd")
 theme_override_styles/focus = ExtResource("3_cjypk")
+disabled = true
 text = "Silo"
 alignment = 2
 
@@ -169,6 +171,7 @@ theme_override_styles/hover = ExtResource("4_wr4ws")
 theme_override_styles/pressed = ExtResource("3_cjypk")
 theme_override_styles/disabled = ExtResource("4_thrgd")
 theme_override_styles/focus = ExtResource("3_cjypk")
+disabled = true
 text = "Tile"
 alignment = 2
 

@@ -112,5 +112,6 @@ func getRates(cool,time):
 	if !$Timer.is_stopped():
 		if $Timer.wait_time > cool:
 			$Timer.wait_time = cool
+			print(cool)
 	cooldown = cool
 	missileTime = time

@@ -24,8 +24,8 @@ func write_dialogue(msg, time):
 
 
 func updateCurrency(Production, EnemyParts):
-	$Currency/Production.text = str(Main.production)
-	$Currency/EnemyPartsLabel.text = str(Main.enemy_parts)
+	$Currency/Production.text = str(Production)
+	$Currency/EnemyPartsLabel.text = str(EnemyParts)
 
 func toggleSideBar(value):
 		$Buttons.visible = value

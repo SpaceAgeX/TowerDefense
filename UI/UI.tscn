@@ -193,7 +193,6 @@ texture = ExtResource("7_nb8e2")
 centered = false
 
 [node name="BuildingStats" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0

@@ -1,7 +1,7 @@
 extends TileMap
 
-@onready var build_tile_scene = preload("res://BuildTile/Build_tile.tscn")
 
+@onready var build_tile_scene = preload("res://BuildTile/Build_tile.tscn")
 
 func place_build_tile(pos):
 	var x_position = floor(pos.x/64)*16
@@ -18,14 +18,13 @@ func place_build_tile(pos):
 	return new_tile
 
 
-# Might Be Inaccurate for reasons I'm still not sure of
 func get_nearest_building(pos):
-	if self.get_child_count() != 0:
+	if self.get_child_count() > 0:
 		var nearest = self.get_child(0)
 		
 		for building in self.get_children():
 			var closer_than_nearest = building.position.distance_to(pos) < nearest.position.distance_to(pos)
-			var is_not_empty =  building.type != BuildTile.Types.EMPTY
+			var is_not_empty =  building.type != BuildTile.Types.EMPTY and building.type != 0
 			
 			if is_not_empty and closer_than_nearest:
 				nearest = building
@@ -33,3 +32,26 @@ func get_nearest_building(pos):
 		return nearest
 	
 	return null
+
+
+func get_random_building():
+	if self.get_child_count() > 0:
+		var buildings = []
+		
+		for building in self.get_children():
+			if building.type != BuildTile.Types.EMPTY:
+				buildings.append(building)
+		
+		return buildings[randi_range(0, len(buildings)-1)]
+	
+	return null
+
+
+func get_silos():
+	var silos = []
+	
+	for building in self.get_children():
+		if building.type == BuildTile.Types.SILO:
+			silos.append(building)
+	
+	return silos

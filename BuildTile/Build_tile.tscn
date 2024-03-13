@@ -10,7 +10,7 @@ size = Vector2(16, 16)
 scale = Vector2(0.9, 0.9)
 script = ExtResource("1_cv8ei")
 
-[node name="Buildings" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_bq558")
 hframes = 8

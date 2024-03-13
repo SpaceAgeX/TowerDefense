@@ -24,13 +24,13 @@ var timerFinished = false
 	set = updateType
 
 @onready var Main = get_tree().get_current_scene()
-@onready var Buildings = $Buildings
+@onready var Sprite = $Sprite
 @onready var Enemies = $"../../Enemies"
 
 
 func _ready():
 	$Timer.stop()
-	updateType(self.type) # Might Be Redundant - Possibly Remove Later
+	updateType(self.type)
 
 
 func _physics_process(_delta):
@@ -49,7 +49,8 @@ func _physics_process(_delta):
 				nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
 				if nearest_enemy != null:
 					updateSilo()
-			#$ProgressBar.value = 100-(($Timer.time_left/$Timer.wait_time)*100)
+
+			$ProgressBar.value = 100-(($Timer.time_left/$Timer.wait_time)*100)
 
 
 func updateType(new_type: Types):
@@ -57,15 +58,17 @@ func updateType(new_type: Types):
 	
 	match new_type:
 		Types.EMPTY:
-			Buildings.visible = false
+			placeable = true
+			Sprite.visible = false
 			stats = {}
 		
 		Types.TOWN:
+			placeable = false
 			setBuilding(0)
-			
 			stats = { "health": 10, "maxHealth": 10 }
 		
 		Types.FACTORY:
+			placeable = false
 			setBuilding(3)
 			
 			stats = { 
@@ -75,6 +78,7 @@ func updateType(new_type: Types):
 			}
 		
 		Types.SILO:
+			placeable = false
 			setBuilding(6)
 			
 			stats = { 
@@ -91,8 +95,8 @@ func updateType(new_type: Types):
 
 
 func setBuilding(frame):
-	Buildings.visible = true
-	Buildings.frame = frame
+	Sprite.visible = true
+	Sprite.frame = frame
 	placeable = false
 
 
@@ -121,6 +125,24 @@ func setRates(cool,time):
 		
 		self.stats["cooldown"] = cool
 		self.stats["missileTime"] = time
+
+
+func take_damage(amount):
+	if self.stats.has("health"):
+		var tween = create_tween()
+		
+		self.stats["health"] -= amount
+		
+		if self.stats["health"] <= 0:
+			if type == BuildTile.Types.FACTORY:
+				Main.production -= self.stats["productionRate"]
+			
+			updateType(BuildTile.Types.EMPTY)
+			$ProgressBar.visible = false
+
+		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 1, 1), 0.5)
+		#await get_tree().create_timer(0.55)
+		tween.tween_property(Sprite, "modulate", Color(0xffffff), 0.5)
 
 
 func _on_area_2d_mouse_entered():

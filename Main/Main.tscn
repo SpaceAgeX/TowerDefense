@@ -73,5 +73,6 @@ hframes = 8
 [connection signal="pressed" from="UI/Buttons/Factory" to="." method="_on_factory_pressed"]
 [connection signal="pressed" from="UI/Buttons/Silo" to="." method="_on_silo_pressed"]
 [connection signal="pressed" from="UI/Buttons/Tile" to="." method="_on_new_tile_pressed"]
+[connection signal="pressed" from="UI/Buttons/Remove" to="." method="_on_remove_building_pressed"]
 
 [editable path="UI"]

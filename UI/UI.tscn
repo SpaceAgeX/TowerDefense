@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=19 format=3 uid="uid://bmcbvbgvor4d3"]
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://b2qbvdbkxnlwc" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
 [ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="6_ijlg7"]
 [ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
+[ext_resource type="Texture2D" uid="uid://df1kpjc53vpfy" path="res://Assets/redX.png" id="8_6ir1o"]
 [ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]
 [ext_resource type="Texture2D" uid="uid://ds4u3s2adt76s" path="res://Assets/missile.png" id="10_fn3wc"]
 [ext_resource type="Texture2D" uid="uid://ceig1fts2mlg0" path="res://Assets/hourglass.png" id="11_q2uxg"]
@@ -187,6 +188,28 @@ alignment = 2
 [node name="Selector" type="Sprite2D" parent="Buttons/Tile"]
 scale = Vector2(5, 5)
 texture = ExtResource("6_ijlg7")
+centered = false
+
+[node name="Remove" type="Button" parent="Buttons"]
+layout_mode = 1
+offset_left = 25.0
+offset_top = 600.0
+offset_right = 275.0
+offset_bottom = 675.0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("3_cjypk")
+theme_override_styles/hover = ExtResource("4_wr4ws")
+theme_override_styles/pressed = ExtResource("3_cjypk")
+theme_override_styles/disabled = ExtResource("4_thrgd")
+theme_override_styles/focus = ExtResource("3_cjypk")
+disabled = true
+text = "Remove"
+alignment = 2
+
+[node name="RedX" type="Sprite2D" parent="Buttons/Remove"]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("8_6ir1o")
 centered = false
 
 [node name="ToggleSideBar" type="Button" parent="."]

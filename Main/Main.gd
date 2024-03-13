@@ -10,7 +10,7 @@ var enemyCount = 0
 
 @onready var Buildings = $Buildings
 @onready var UI = $UI
-
+@onready var Rect = $"ColorRect"
 
 func _ready():
 	UI.updateCurrency(production, enemy_parts)
@@ -46,6 +46,7 @@ func _physics_process(_delta):
 
 
 func cancel_place():
+		Rect.visible = false
 		UI.toggleSideBar(true)
 		on = BuildTile.Types.EMPTY
 
@@ -73,7 +74,7 @@ func on_tile_clicked(tile):
 		UI.toggleSideBar(true)
 		
 		on = BuildTile.Types.EMPTY
-		
+		Rect.visible = false
 		
 	
 	if on == BuildTile.Types.EMPTY:
@@ -88,6 +89,7 @@ func on_tile_clicked(tile):
 
 
 func _on_town_pressed():
+	Rect.visible = true
 	UI.toggleSideBar(false)
 	
 	on = BuildTile.Types.TOWN
@@ -96,7 +98,7 @@ func _on_town_pressed():
 func _on_factory_pressed():
 	if enemy_parts >= 10:
 		UI.toggleSideBar(false)
-		
+		Rect.visible = true
 		on = BuildTile.Types.FACTORY
 		
 	else: 
@@ -106,6 +108,7 @@ func _on_factory_pressed():
 func _on_silo_pressed():
 	if enemy_parts >= 10:
 		UI.toggleSideBar(false)
+		Rect.visible = true
 		on = BuildTile.Types.SILO
 		
 		
@@ -116,7 +119,7 @@ func _on_silo_pressed():
 func _on_new_tile_pressed():
 	if enemy_parts >= 250:
 		UI.toggleSideBar(false)
-		
+		Rect.visible = true
 		on = BuildTile.Types.EMPTY
 		new_tile_on = true
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cewebeurf2hqp"]
+[gd_scene load_steps=12 format=3 uid="uid://cewebeurf2hqp"]
 
 [ext_resource type="PackedScene" uid="uid://bmcbvbgvor4d3" path="res://UI/UI.tscn" id="1_mgneh"]
 [ext_resource type="Script" path="res://Main/Main.gd" id="1_s62b8"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cx56wmhce6ys3" path="res://BuildTile/Build_tile.tscn" id="3_oima4"]
 [ext_resource type="Script" path="res://Main/Buildings.gd" id="4_hcurx"]
 [ext_resource type="Script" path="res://Main/Enemies.gd" id="4_lk6ok"]
+
+[sub_resource type="Environment" id="Environment_i74pp"]
+background_mode = 3
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sxfjl"]
 texture = ExtResource("2_kpoyc")
@@ -28,9 +31,25 @@ sources/0 = SubResource("TileSetScenesCollectionSource_p6xeh")
 script = ExtResource("1_s62b8")
 metadata/_edit_vertical_guides_ = []
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i74pp")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+z_index = -1
+offset_left = -1976.0
+offset_top = -1192.0
+offset_right = 2280.0
+offset_bottom = 1440.0
+size_flags_vertical = 4
+color = Color(0, 0, 0, 0.458824)
+
+[node name="UI" parent="." instance=ExtResource("1_mgneh")]
+
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="Grass" type="TileMap" parent="."]
+z_index = -2
 texture_filter = 1
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_5m8m7")
@@ -41,15 +60,13 @@ layer_0/tile_data = PackedInt32Array(-327690, 65536, 0, -262154, 65536, 0, -1966
 scale = Vector2(4, 4)
 tile_set = SubResource("TileSet_g0mjq")
 format = 2
-layer_0/tile_data = PackedInt32Array(-3, 0, 65536, -65538, 0, 65536, 131070, 0, 65536, -131073, 0, 65536, -65537, 0, 65536, 131071, 0, 65536, 196607, 0, 65536, -196608, 0, 65536, -131072, 0, 65536, 65536, 0, 65536, 131072, 0, 65536, -131071, 0, 65536, -65535, 0, 65536, 1, 0, 65536, 65537, 0, 65536, 2, 0, 65536, 131069, 0, 65536, 196606, 0, 65536, 131073, 0, 65536, 65538, 0, 65536, -131070, 0, 65536, -196607, 0, 65536, -131074, 0, 65536, -65534, 0, 65536, 65533, 0, 65536, 65534, 0, 65536, 65535, 0, 65536, -65536, 0, 65536, -1, 0, 65536, -2, 0, 65536, -65539, 0, 65536, 0, 0, 65536)
+layer_0/tile_data = PackedInt32Array(-3, 0, 65536, -65538, 0, 65536, 131070, 0, 65536, -65537, 0, 65536, 131071, 0, 65536, 196607, 0, 65536, -131072, 0, 65536, 65536, 0, 65536, 131072, 0, 65536, -131071, 0, 65536, -65535, 0, 65536, 1, 0, 65536, 65537, 0, 65536, 2, 0, 65536, 131069, 0, 65536, 196606, 0, 65536, 131073, 0, 65536, 65538, 0, 65536, -131070, 0, 65536, -131074, 0, 65536, -65534, 0, 65536, 65533, 0, 65536, 65534, 0, 65536, 65535, 0, 65536, -65536, 0, 65536, -1, 0, 65536, -2, 0, 65536, -65539, 0, 65536, 0, 0, 65536, -131073, 0, 65536, -196608, 0, 65536, -196607, 0, 65536)
 script = ExtResource("4_hcurx")
 
 [node name="Enemies" type="Node2D" parent="."]
 y_sort_enabled = true
 script = ExtResource("4_lk6ok")
 spawnDist = 750
-
-[node name="UI" parent="." instance=ExtResource("1_mgneh")]
 
 [connection signal="pressed" from="UI/Buttons/Town" to="." method="_on_town_pressed"]
 [connection signal="pressed" from="UI/Buttons/Factory" to="." method="_on_factory_pressed"]

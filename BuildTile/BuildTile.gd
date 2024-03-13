@@ -29,6 +29,12 @@ var timerFinished = false
 
 
 func _ready():
+	if randi_range(0,5) in range(3,4):
+		$Sprite2D.frame = 1
+	elif randi_range(0,5) in range(0,3):
+		$Sprite2D.frame = 0
+	elif randi_range(0,5) == 5:
+		$Sprite2D.frame = 2
 	$Timer.stop()
 	updateType(self.type)
 

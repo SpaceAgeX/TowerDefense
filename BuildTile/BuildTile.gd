@@ -21,12 +21,15 @@ var InArea = false
 var max_health = 10
 var health = max_health
 
+var nearest_enemy = null
+
 #For Silos
-var damage = 5
+var damage = 10
 var cooldown = 3
 
 var missileTime = 1.0
 
+var timerFinished = false
 #For Factories
 var productionRate = 5
 
@@ -55,6 +58,11 @@ func _physics_process(_delta):
 		Types.FACTORY:
 			pass
 		Types.SILO:
+			if timerFinished:
+				nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
+				print("Finished")
+				if nearest_enemy != null:
+					updateSilo()
 			$ProgressBar.value = 100-($Timer.time_left/$Timer.wait_time)*100
 
 
@@ -73,7 +81,8 @@ func updateType():
 		Types.SILO:
 			setBuilding(6)
 			$ProgressBar.visible = true
-			updateSilo()
+			$Timer.wait_time = cooldown + missileTime
+			$Timer.start()
 			
 func setBuilding(frame):
 	Buildings.visible = true
@@ -81,21 +90,17 @@ func setBuilding(frame):
 	placeable = false
 
 func updateSilo():
-	$Timer.wait_time = cooldown + missileTime
+	timerFinished = false
+	
+	nearest_enemy.onTarget = true
+	nearest_enemy.take_damage(self.damage, missileTime)
+	
+	var n = missile.instantiate()
+	n.target = nearest_enemy
+	n.time = missileTime
+	add_child(n)
+	
 	$Timer.start()
-	await $Timer.timeout
-	var nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
-	
-	if nearest_enemy != null:
-		nearest_enemy.onTarget = true
-		nearest_enemy.take_damage(self.damage, missileTime)
-		
-		var n = missile.instantiate()
-		n.target = nearest_enemy
-		n.time = missileTime
-		add_child(n)
-	
-	updateSilo()
 
 
 
@@ -110,10 +115,17 @@ func _on_area_2d_mouse_exited():
 func getRates(cool,time):
 	
 	if !$Timer.is_stopped():
-		$Timer.stop()
 		if $Timer.wait_time > cool:
+			$Timer.stop()
 			$Timer.wait_time = cool
 			$Timer.start()
-			print(cool)
+			
+		else :
+			print("No Reset")
 	cooldown = cool
 	missileTime = time
+
+
+func _on_timer_timeout():
+	timerFinished = true
+	$Timer.stop()

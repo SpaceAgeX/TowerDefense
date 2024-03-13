@@ -112,7 +112,7 @@ func updateSilo():
 
 
 # Only Applicable to Silos
-func getRates(cool,time):
+func setRates(cool,time):
 	if self.type == BuildTile.Types.SILO:
 		if !$Timer.is_stopped():
 			if $Timer.wait_time > cool:

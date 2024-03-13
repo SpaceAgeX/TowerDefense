@@ -28,10 +28,6 @@ func _ready():
 	
 	for child in $Buildings.get_children():
 		child.clicked.connect(on_tile_clicked)
-	
-	
-	
-	
 
 
 func _physics_process(_delta):
@@ -68,7 +64,7 @@ func on_tile_clicked(tile):
 			createTown(selected_tile)
 		
 		if on == BuildTile.Types.FACTORY:
-			production += selected_tile.productionRate
+			production += selected_tile.stats["productionRate"]
 			enemy_parts -= 10
 			UI.updateCurrency(production, enemy_parts)
 			updateTiles()
@@ -92,8 +88,8 @@ func on_tile_clicked(tile):
 		print("Can't Place Here")
 		UI.write_dialogue("Can't Place There", 2)
 		
+	#selected_tile.updateType()
 	
-	selected_tile.updateType()
 
 
 func _on_town_pressed():
@@ -155,4 +151,9 @@ func updateTiles():
 	if len(Silos) != 0:
 		var productionEach = production/len(Silos)
 		for x in Silos:
-			get_node("Buildings/" + str(x)).getRates((50/(productionEach+1)), 1)
+			var silo = get_node("Buildings/" + str(x))
+			silo.getRates((50/(productionEach+1)), 1)
+			
+			# Updating Timer Wait Time
+			silo.get_node("Timer").wait_time = silo.stats["cooldown"] + silo.stats["missileTime"]
+			

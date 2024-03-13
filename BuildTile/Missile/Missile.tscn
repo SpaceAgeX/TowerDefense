@@ -8,7 +8,6 @@ motion_mode = 1
 script = ExtResource("1_3dj84")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-visible = false
 z_index = 1
 texture = ExtResource("2_21kcv")
 

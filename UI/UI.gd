@@ -6,10 +6,13 @@ extends CanvasLayer
 @onready var Main = $".."
 
 var tween
+var selected_building
 
-var building
 
-
+func _ready():
+	# Fix the dimensions of Stats Panel
+	$BuildingStats.size.y = 600
+	$BuildingStats.position.y -= 200
 
 
 func write_dialogue(msg, time):
@@ -27,13 +30,33 @@ func updateCurrency(Production, EnemyParts):
 	$Currency/Production.text = str(Production)
 	$Currency/EnemyPartsLabel.text = str(EnemyParts)
 
+
 func toggleSideBar(value):
 		$Buttons.visible = value
 		$ToggleSideBar.visible = value
+		
+		if value == false:
+			for node in $BuildingStats.get_children():
+				node.visible = false
+			
+			$BuildingStats/ColorRect.visible = true
+			$BuildingStats/CloseStatsButton.visible = true
+			$BuildingStats/BuildingSprite.visible = true
+			$BuildingStats/TypeLabel.visible = true
+
 
 func view_stats(tile):
+	selected_building = tile
+	var stat_rows = 0
 	
-	building = tile
+	for node in $BuildingStats.get_children():
+		node.visible = false
+	
+	$BuildingStats/ColorRect.visible = true
+	$BuildingStats/CloseStatsButton.visible = true
+	$BuildingStats/BuildingSprite.visible = true
+	$BuildingStats/TypeLabel.visible = true
+	
 	var sprite_frame = 1
 	var building_type = "Empty"
 	
@@ -51,14 +74,38 @@ func view_stats(tile):
 		BuildTile.Types.SILO:
 			sprite_frame = 6
 			building_type = "Silo"
-			
 	
-
 	$BuildingStats/BuildingSprite.frame = sprite_frame
 	$BuildingStats/TypeLabel.text = building_type
-	$BuildingStats/HealthLabel.text = str(tile.health) + " / " + str(tile.max_health)
-	$BuildingStats/DamageLabel.text = str(tile.damage) + " dmg"
-	$BuildingStats/CooldownLabel.text = str(tile.cooldown+tile.missileTime) + " sec"
+	
+	if tile.stats.has("health") and tile.stats.has("maxHealth"):
+		stat_rows += 1
+		$BuildingStats/health.text = str(tile.stats["health"])
+		$BuildingStats/maxHealth.text = str(tile.stats["maxHealth"])
+		
+		$BuildingStats/health.position.y = stat_rows*100
+		$BuildingStats/maxHealth.position.y = stat_rows*100
+		
+		$BuildingStats/health.visible = true
+		$BuildingStats/maxHealth.visible = true
+	
+	if tile.stats.has("damage"):
+		stat_rows += 1
+		$BuildingStats/damage.text = str(tile.stats["damage"]) + " dmg"
+		$BuildingStats/damage.position.y = stat_rows*100
+		$BuildingStats/damage.visible = true
+	
+	if tile.stats.has("cooldown") and tile.stats.has("missileTime"):
+		stat_rows += 1
+		$BuildingStats/cooldown.text = str(tile.stats["cooldown"] + tile.stats["missileTime"]) + " sec"
+		$BuildingStats/cooldown.position.y = stat_rows*100
+		$BuildingStats/cooldown.visible = true
+	
+	if tile.stats.has("productionRate"):
+		stat_rows += 1
+		$BuildingStats/productionRate.text = str(tile.stats["productionRate"])
+		$BuildingStats/productionRate.position.y = stat_rows*100
+		$BuildingStats/productionRate.visible = true
 
 
 func _on_toggle_side_bar_pressed():

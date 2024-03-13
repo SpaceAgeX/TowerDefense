@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=17 format=3 uid="uid://bmcbvbgvor4d3"]
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]
 [ext_resource type="Texture2D" uid="uid://ds4u3s2adt76s" path="res://Assets/missile.png" id="10_fn3wc"]
 [ext_resource type="Texture2D" uid="uid://ceig1fts2mlg0" path="res://Assets/hourglass.png" id="11_q2uxg"]
-[ext_resource type="Texture2D" uid="uid://bekpgcdhodlhq" path="res://Assets/trends.png" id="12_plrm3"]
 [ext_resource type="Texture2D" uid="uid://qxfejtswmio3" path="res://Assets/Enemies.png" id="13_bqqhf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_g0406"]
@@ -200,12 +199,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -342.0
-offset_top = -399.0
-offset_bottom = 1.0
+offset_left = -310.0
+offset_top = -390.0
 grow_horizontal = 0
 grow_vertical = 0
-size_flags_vertical = 3
 
 [node name="CloseStatsButton" type="Button" parent="BuildingStats"]
 layout_mode = 1
@@ -276,11 +273,12 @@ theme_override_font_sizes/font_size = 35
 text = "10"
 vertical_alignment = 1
 
-[node name="slash" type="Label" parent="BuildingStats/maxHealth"]
+[node name="slash" type="Label" parent="BuildingStats"]
 layout_mode = 1
-offset_left = -26.0
-offset_right = 5.0
-offset_bottom = 100.0
+offset_left = 184.0
+offset_top = 100.0
+offset_right = 215.0
+offset_bottom = 200.0
 theme_override_fonts/font = ExtResource("1_m3gep")
 theme_override_font_sizes/font_size = 35
 text = "/"
@@ -295,7 +293,7 @@ offset_right = 300.0
 offset_bottom = 300.0
 theme_override_fonts/font = ExtResource("1_m3gep")
 theme_override_font_sizes/font_size = 35
-text = "0 dmg"
+text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -320,23 +318,6 @@ vertical_alignment = 1
 position = Vector2(-52, 50)
 scale = Vector2(3, 3)
 texture = ExtResource("11_q2uxg")
-
-[node name="productionRate" type="Label" parent="BuildingStats"]
-layout_mode = 1
-offset_left = 100.0
-offset_top = 400.0
-offset_right = 300.0
-offset_bottom = 500.0
-theme_override_fonts/font = ExtResource("1_m3gep")
-theme_override_font_sizes/font_size = 35
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Trending" type="Sprite2D" parent="BuildingStats/productionRate"]
-position = Vector2(-52, 50)
-scale = Vector2(3, 3)
-texture = ExtResource("12_plrm3")
 
 [node name="Currency" type="Control" parent="."]
 layout_mode = 3

@@ -28,6 +28,7 @@ func _ready():
 
 func _physics_process(_delta):
 	# Cancels Building Placement
+	get_node("Placer").position = Vector2(snapped(get_global_mouse_position().x,64)-32, snapped(get_local_mouse_position().y,64)-32)
 	if Input.is_action_just_pressed("RightClick"):
 		cancel_place()
 	
@@ -46,6 +47,7 @@ func _physics_process(_delta):
 
 
 func cancel_place():
+		get_node("Placer").visible=false
 		Rect.visible = false
 		UI.toggleSideBar(true)
 		on = BuildTile.Types.EMPTY
@@ -75,6 +77,7 @@ func on_tile_clicked(tile):
 		
 		on = BuildTile.Types.EMPTY
 		Rect.visible = false
+		get_node("Placer").visible=false
 		
 	
 	if on == BuildTile.Types.EMPTY:
@@ -91,7 +94,8 @@ func on_tile_clicked(tile):
 func _on_town_pressed():
 	Rect.visible = true
 	UI.toggleSideBar(false)
-	
+	get_node("Placer").visible=true
+	get_node("Placer").frame=0
 	on = BuildTile.Types.TOWN
 
 
@@ -99,6 +103,8 @@ func _on_factory_pressed():
 	if enemy_parts >= 10:
 		UI.toggleSideBar(false)
 		Rect.visible = true
+		get_node("Placer").visible=true
+		get_node("Placer").frame=3
 		on = BuildTile.Types.FACTORY
 		
 	else: 
@@ -109,6 +115,8 @@ func _on_silo_pressed():
 	if enemy_parts >= 10:
 		UI.toggleSideBar(false)
 		Rect.visible = true
+		get_node("Placer").visible=true
+		get_node("Placer").frame=6
 		on = BuildTile.Types.SILO
 		
 		

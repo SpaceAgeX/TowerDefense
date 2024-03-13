@@ -6,9 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cx56wmhce6ys3" path="res://BuildTile/Build_tile.tscn" id="3_oima4"]
 [ext_resource type="Script" path="res://Main/Buildings.gd" id="4_hcurx"]
 [ext_resource type="Script" path="res://Main/Enemies.gd" id="4_lk6ok"]
-
-[sub_resource type="Environment" id="Environment_i74pp"]
-background_mode = 3
+[ext_resource type="Texture2D" uid="uid://dlio1f13tgfvj" path="res://Assets/Buildings.png" id="7_8dvik"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sxfjl"]
 texture = ExtResource("2_kpoyc")
@@ -30,9 +28,6 @@ sources/0 = SubResource("TileSetScenesCollectionSource_p6xeh")
 [node name="Main" type="Node2D"]
 script = ExtResource("1_s62b8")
 metadata/_edit_vertical_guides_ = []
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_i74pp")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
@@ -67,6 +62,12 @@ script = ExtResource("4_hcurx")
 y_sort_enabled = true
 script = ExtResource("4_lk6ok")
 spawnDist = 750
+
+[node name="Placer" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(4, 4)
+texture = ExtResource("7_8dvik")
+hframes = 8
 
 [connection signal="pressed" from="UI/Buttons/Town" to="." method="_on_town_pressed"]
 [connection signal="pressed" from="UI/Buttons/Factory" to="." method="_on_factory_pressed"]

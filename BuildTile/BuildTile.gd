@@ -29,6 +29,7 @@ var timerFinished = false
 
 
 func _ready():
+	$Timer.stop()
 	updateType(self.type) # Might Be Redundant - Possibly Remove Later
 
 
@@ -36,7 +37,6 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("Click") and InArea:
 		#print("Click on:" + str(position))
 		clicked.emit(self.name)
-	
 	match type:
 		Types.EMPTY:
 			pass
@@ -47,10 +47,9 @@ func _physics_process(_delta):
 		Types.SILO:
 			if timerFinished:
 				nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
-				print("Finished")
 				if nearest_enemy != null:
 					updateSilo()
-			$ProgressBar.value = 100-($Timer.time_left/$Timer.wait_time)*100
+			$ProgressBar.value = 100-(($Timer.time_left/$Timer.wait_time)*100)
 
 
 func updateType(new_type: Types):
@@ -82,7 +81,7 @@ func updateType(new_type: Types):
 				"health": 10, 
 				"maxHealth": 10, 
 				"damage": 10, 
-				"cooldown": 3, 
+				"cooldown": 15, 
 				"missileTime": 1.0 
 			}
 			

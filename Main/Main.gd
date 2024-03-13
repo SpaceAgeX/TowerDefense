@@ -152,8 +152,7 @@ func updateTiles():
 		var productionEach = production/len(Silos)
 		for x in Silos:
 			var silo = get_node("Buildings/" + str(x))
-			silo.setRates((50/(productionEach+1)), 1)
+			silo.setRates((15/(productionEach+1)), 1)
 			
 			# Updating Timer Wait Time
-			#silo.get_node("Timer").wait_time = silo.stats["cooldown"] + silo.stats["missileTime"]
 			

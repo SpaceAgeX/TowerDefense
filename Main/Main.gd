@@ -4,19 +4,15 @@ extends Node2D
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 
-
-
 var enemy_parts = 40
 var production = 0
 var enemyCount = 0
 
-
-
-var Silos = []
-
+@onready var Buildings = $Buildings
 @onready var UI = $UI
+
+
 func _ready():
-	
 	UI.updateCurrency(production, enemy_parts)
 	UI.toggleSideBar(true)
 	
@@ -70,7 +66,6 @@ func on_tile_clicked(tile):
 			updateTiles()
 			
 		if on == BuildTile.Types.SILO:
-			Silos.append(tile)
 			enemy_parts -= 10
 			UI.updateCurrency(production, enemy_parts)
 			updateTiles()
@@ -140,7 +135,7 @@ func createTown(tile):
 
 
 
-func killed():
+func on_enemy_killed():
 	enemyCount += 1
 	enemy_parts += 40
 	UI.updateCurrency(production, enemy_parts)
@@ -148,11 +143,11 @@ func killed():
 
 
 func updateTiles():
-	if len(Silos) != 0:
-		var productionEach = production/len(Silos)
-		for x in Silos:
+	var silos = Buildings.get_silos()
+	
+	if len(silos) != 0:
+		var productionEach = production/len(silos)
+		for x in silos:
 			var silo = get_node("Buildings/" + str(x))
 			silo.setRates((15/(productionEach+1)), 1)
-			
-			# Updating Timer Wait Time
-			
+

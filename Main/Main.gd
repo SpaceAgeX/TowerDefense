@@ -155,4 +155,4 @@ func updateTiles():
 	if len(Silos) != 0:
 		var productionEach = production/len(Silos)
 		for x in Silos:
-			get_node("Buildings/" + str(x)).getRates((10/(productionEach+1)),1)
+			get_node("Buildings/" + str(x)).getRates((50/(productionEach+1)), 1)

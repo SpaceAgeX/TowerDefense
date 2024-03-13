@@ -2,10 +2,10 @@
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
-[ext_resource type="StyleBox" uid="uid://b33330g5gv3qx" path="res://UI/ButtonStyleBox.tres" id="3_cjypk"]
+[ext_resource type="StyleBox" uid="uid://cm7hkebf6h7k" path="res://UI/ButtonStyleBox.tres" id="3_cjypk"]
 [ext_resource type="Texture2D" uid="uid://dlio1f13tgfvj" path="res://Assets/Buildings.png" id="3_y6ged"]
-[ext_resource type="StyleBox" uid="uid://cponnsbw0gmap" path="res://UI/ButtonDisabledStyleBox.tres" id="4_thrgd"]
-[ext_resource type="StyleBox" uid="uid://b2qbvdbkxnlwc" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
+[ext_resource type="StyleBox" uid="uid://b6be48m2snw5p" path="res://UI/ButtonDisabledStyleBox.tres" id="4_thrgd"]
+[ext_resource type="StyleBox" uid="uid://5umtrmyq5m0p" path="res://UI/ButtonHoverStyleBox.tres" id="4_wr4ws"]
 [ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="6_ijlg7"]
 [ext_resource type="Texture2D" uid="uid://cx7h13dixvulf" path="res://Assets/article.png" id="7_nb8e2"]
 [ext_resource type="Texture2D" uid="uid://cw5bqcpwgvfmn" path="res://Assets/heart_icon.png" id="9_kaulm"]

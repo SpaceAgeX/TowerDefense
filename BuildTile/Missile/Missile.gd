@@ -18,7 +18,6 @@ func _ready():
 	dist = global_position.distance_to(target.global_position)
 
 
-
 func _physics_process(delta):
 	t += delta
 
@@ -27,9 +26,6 @@ func _physics_process(delta):
 		look_at(target.position)
 	else:
 		queue_free()
-
-
-
 
 
 func _on_timer_timeout():

@@ -49,7 +49,7 @@ func _physics_process(_delta):
 				nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
 				if nearest_enemy != null:
 					updateSilo()
-			
+
 			$ProgressBar.value = 100-(($Timer.time_left/$Timer.wait_time)*100)
 
 
@@ -89,7 +89,7 @@ func updateType(new_type: Types):
 				"missileTime": 1.0 
 			}
 			
-			$ProgressBar.visible = true
+			#$ProgressBar.visible = true
 			$Timer.wait_time = self.stats["cooldown"] + self.stats["missileTime"]
 			$Timer.start()
 
@@ -101,7 +101,10 @@ func setBuilding(frame):
 
 
 func updateSilo():
+	
 	timerFinished = false
+	
+	$Timer.wait_time = self.stats["cooldown"] + self.stats["missileTime"]
 	
 	nearest_enemy.onTarget = true
 	nearest_enemy.take_damage(self.stats["damage"], self.stats["missileTime"])
@@ -117,14 +120,8 @@ func updateSilo():
 # Only Applicable to Silos
 func setRates(cool,time):
 	if self.type == BuildTile.Types.SILO:
-		if !$Timer.is_stopped():
-			if $Timer.wait_time > cool:
-				$Timer.stop()
-				$Timer.wait_time = cool
-				$Timer.start()
-				
-			else :
-				print("No Reset")
+		$Timer.wait_time = ($Timer.time_left/$Timer.wait_time)*cool
+		$Timer.start()
 		
 		self.stats["cooldown"] = cool
 		self.stats["missileTime"] = time

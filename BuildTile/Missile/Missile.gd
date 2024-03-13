@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+@onready var Enemies = get_tree().get_current_scene().get_node("Enemies")
 
 var target: Node2D
 var time: float
@@ -19,12 +20,12 @@ func _ready():
 
 func _physics_process(delta):
 	t += delta
+
 	if target != null:
 		$Sprite2D.global_position = global_position.lerp(target.global_position, t)
 		look_at(target.position)
 	else:
 		queue_free()
-	
 
 
 func _on_timer_timeout():

@@ -3,10 +3,14 @@ extends CanvasLayer
 
 @onready var dialogue_label = $HUD/Display
 @onready var side_bar = $Buttons
+@onready var Main = $".."
 
 var tween
 
 var building
+
+
+
 
 func write_dialogue(msg, time):
 	dialogue_label.text = msg
@@ -18,6 +22,14 @@ func write_dialogue(msg, time):
 	tween = get_tree().create_tween()
 	tween.tween_property(dialogue_label, "modulate", Color.TRANSPARENT, time).set_trans(Tween.TRANS_BACK)
 
+
+func updateCurrency(Production, EnemyParts):
+	$Currency/Production.text = str(Production)
+	$Currency/EnemyPartsLabel.text = str(EnemyParts)
+
+func toggleSideBar(value):
+		$Buttons.visible = value
+		$ToggleSideBar.visible = value
 
 func view_stats(tile):
 	
@@ -45,6 +57,8 @@ func view_stats(tile):
 	$BuildingStats/BuildingSprite.frame = sprite_frame
 	$BuildingStats/TypeLabel.text = building_type
 	$BuildingStats/HealthLabel.text = str(tile.health) + " / " + str(tile.max_health)
+	$BuildingStats/DamageLabel.text = str(tile.damage) + " dmg"
+	$BuildingStats/CooldownLabel.text = str(tile.cooldown+tile.missileTime) + " sec"
 
 
 func _on_toggle_side_bar_pressed():

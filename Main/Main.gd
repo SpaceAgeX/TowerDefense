@@ -1,18 +1,27 @@
 extends Node2D
 
-@onready var build_tile_scene = preload("res://BuildTile/Build_tile.tscn")
 
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 
+
+
+var enemy_parts = 40
 var production = 0
 var enemyCount = 0
-var gold = 10
+
 
 
 var Silos = []
+
+@onready var UI = $UI
 func _ready():
-	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	
+	UI.updateCurrency(production, enemy_parts)
+	UI.toggleSideBar(true)
+	
+	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	DisplayServer.window_set_min_size(Vector2i(1200, 800))
 	
 	randomize()
 	await get_tree().create_timer(0.1).timeout
@@ -20,25 +29,32 @@ func _ready():
 	for child in $Buildings.get_children():
 		child.clicked.connect(on_tile_clicked)
 	
-	$UI/Buttons/Factory.disabled = true
-	$UI/Buttons/Silo.disabled = true
-	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+	
 	
 	
 
 
 func _physics_process(_delta):
+	# Cancels Building Placement
 	if Input.is_action_just_pressed("RightClick"):
 		cancel_place()
 	
+	# Places New Build Tile
 	if Input.is_action_just_pressed("Click") and new_tile_on:
 		var mouse_position = get_global_mouse_position()
-		place_build_tile(mouse_position)
+		
+		UI.toggleSideBar(true)
+		new_tile_on = false
+		
+		var new_tile = $Buildings.place_build_tile(mouse_position)
+		new_tile.clicked.connect(on_tile_clicked)
+		
+		enemy_parts -= 250
+		UI.updateCurrency(production, enemy_parts)
 
 
 func cancel_place():
-		$UI/Buttons.visible = true
-		$UI/ToggleSideBar.visible = true
+		UI.toggleSideBar(true)
 		on = BuildTile.Types.EMPTY
 
 
@@ -53,83 +69,68 @@ func on_tile_clicked(tile):
 		
 		if on == BuildTile.Types.FACTORY:
 			production += selected_tile.productionRate
-			$UI/Resources/Production.text = "Production: " + str(production) + "/sec"
+			enemy_parts -= 10
+			UI.updateCurrency(production, enemy_parts)
+			updateTiles()
 			
 		if on == BuildTile.Types.SILO:
 			Silos.append(tile)
+			enemy_parts -= 10
+			UI.updateCurrency(production, enemy_parts)
+			updateTiles()
 		
-		$UI/Buttons.visible = true
-		$UI/ToggleSideBar.visible = true
+		UI.toggleSideBar(true)
 		
 		on = BuildTile.Types.EMPTY
 		
 		
 	
 	if on == BuildTile.Types.EMPTY:
-		$UI.view_stats(selected_tile)
+		UI.view_stats(selected_tile)
 	
 	else:
 		print("Can't Place Here")
-		$UI.write_dialogue("Can't Place There", 2)
+		UI.write_dialogue("Can't Place There", 2)
 		
-	updateTiles()
+	
 	selected_tile.updateType()
 
 
-func place_build_tile(pos):
-	var x_position = floor(pos.x/64)*16
-	var y_position = floor(pos.y/64)*16
-
-	$UI/Buttons.visible = true
-	$UI/ToggleSideBar.visible = true
-	new_tile_on = false
-	print(position, " -> ", Vector2(x_position, y_position))
-	
-	#$Buildings.set_cell(0, Vector2i(4, 0), 0, )
-	var new_tile = build_tile_scene.instantiate()
-	$Buildings.add_child(new_tile)
-	
-	new_tile.position = Vector2i(x_position+8, y_position+8)
-	new_tile.name = "NewBuildTile"
-	new_tile.clicked.connect(on_tile_clicked)
-
-
 func _on_town_pressed():
-	$UI/Buttons.visible = false
-	$UI/ToggleSideBar.visible = false
+	UI.toggleSideBar(false)
+	
 	on = BuildTile.Types.TOWN
 
 
 func _on_factory_pressed():
-	if gold >= 10:
-		$UI/Buttons.visible = false
-		$UI/ToggleSideBar.visible = false
-		on = BuildTile.Types.FACTORY
-		gold -= 10
-		$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+	if enemy_parts >= 10:
+		UI.toggleSideBar(false)
 		
+		on = BuildTile.Types.FACTORY
 		
 	else: 
-		$UI.write_dialogue("You Need 10 Gold", 3)
+		UI.write_dialogue("You Need 10 Enemy Parts", 3)
 
 
 func _on_silo_pressed():
-	if gold >= 10:
-		$UI/Buttons.visible = false
-		$UI/ToggleSideBar.visible = false
+	if enemy_parts >= 10:
+		UI.toggleSideBar(false)
 		on = BuildTile.Types.SILO
-		gold -= 10
-		$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+		
 		
 	else: 
-		$UI.write_dialogue("You Need 10 Gold", 3)
+		UI.write_dialogue("You Need 10 Enemy Parts", 3)
 
 
 func _on_new_tile_pressed():
-	$UI/Buttons.visible = false
-	$UI/ToggleSideBar.visible = false
-	on = BuildTile.Types.EMPTY
-	new_tile_on = true
+	if enemy_parts >= 250:
+		UI.toggleSideBar(false)
+		
+		on = BuildTile.Types.EMPTY
+		new_tile_on = true
+	
+	else: 
+		UI.write_dialogue("You Need 250 Enemy Parts", 3)
 
 
 func createTown(tile):
@@ -145,11 +146,13 @@ func createTown(tile):
 
 func killed():
 	enemyCount += 1
-	gold += 5
-	$UI/Resources/Control/Gold.text = "Gold: " + str(gold)
+	enemy_parts += 40
+	UI.updateCurrency(production, enemy_parts)
+	
 
 
 func updateTiles():
-	pass
-	# find Equation decide the missile cooldown based on the amount of production
-			
+	if len(Silos) != 0:
+		var productionEach = production/len(Silos)
+		for x in Silos:
+			get_node("Buildings/" + str(x)).getRates((50/(productionEach+1)), 1)

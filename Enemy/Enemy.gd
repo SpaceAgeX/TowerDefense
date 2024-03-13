@@ -1,15 +1,18 @@
 extends CharacterBody2D
 
+
 signal killed
+
 
 var SPEED = randi_range(25,100)
 
+var onTarget = false
 var health = 10.0
 var damage = 0
 var type = 0
 
-var onTarget = false
 @export var Target = Vector2.ZERO
+@onready var Main = get_tree().get_current_scene()
 
 func  _ready():
 	
@@ -36,8 +39,21 @@ func _physics_process(_delta):
 	move_and_slide()
 	
 	
-func targeted(time):
+	
+	
+func take_damage(dmg, time):
 	$Target.visible = true
 	await get_tree().create_timer(time).timeout
-	killed.emit()
-	queue_free()
+
+	health -= dmg
+  
+	if health <= 0:
+		killed.emit()
+		self.queue_free()
+	
+	$Target.visible = false
+	onTarget = false
+
+
+
+

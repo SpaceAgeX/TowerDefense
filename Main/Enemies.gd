@@ -12,26 +12,44 @@ var n = null
 @export var spawnRate = 1 # over 100 chance per frame
 @export var spawnDist = 1500
 
+@onready var Buildings = $"../Buildings"
 
 func _ready():
 	if !self.enabled:
 		queue_free()
 
-
-func _physics_process(_delta):
-	if randi_range(0, 100) < rate:
-		enemy_node = enemy_scene.instantiate()
-		enemy_node.position = ((Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()) * spawnDist) + target
-		enemy_node.Target = target
-		enemy_node.killed.connect($"..".killed)
-		self.add_child(enemy_node)
-
-
 func set_rate():
 	rate = spawnRate
+	
+func _physics_process(_delta):
+	if randi_range(0, 100) < rate:
+		spawnEnemy()
+		
+func spawnEnemy():
+	enemy_node = enemy_scene.instantiate()
+	enemy_node.position = ((Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()) * spawnDist) + target
+	enemy_node.Target = target
+	enemy_node.killed.connect($"..".killed)
+	self.add_child(enemy_node)
+
+
+
 
 
 func get_nearest_enemy(pos):
+	if self.get_child_count() != 0:
+		var nearest = self.get_child(0)
+		
+		for child in self.get_children():
+			if child.position.distance_to(pos) < nearest.position.distance_to(pos):
+				nearest = child
+				
+		return nearest
+	
+	return null
+
+func get_nearest_untargeted_enemy(pos):
+
 	if self.get_child_count() != 0:
 		
 		var nearest = self.get_child(0)
@@ -47,4 +65,3 @@ func get_nearest_enemy(pos):
 	
 	return null
 
-	

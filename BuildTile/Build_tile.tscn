@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx56wmhce6ys3"]
+[gd_scene load_steps=4 format=3 uid="uid://cx56wmhce6ys3"]
 
 [ext_resource type="Script" path="res://BuildTile/BuildTile.gd" id="1_cv8ei"]
 [ext_resource type="Texture2D" uid="uid://dlio1f13tgfvj" path="res://Assets/Buildings.png" id="2_bq558"]
-[ext_resource type="Texture2D" uid="uid://cwngxwttgtn76" path="res://Assets/Selector.png" id="2_forbi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwuyg"]
 size = Vector2(16, 16)
@@ -10,10 +9,6 @@ size = Vector2(16, 16)
 [node name="BuildTile" type="Node2D"]
 scale = Vector2(0.9, 0.9)
 script = ExtResource("1_cv8ei")
-
-[node name="IndicatorSprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_forbi")
 
 [node name="Buildings" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -27,5 +22,15 @@ shape = SubResource("RectangleShape2D_fwuyg")
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+z_index = 1
+offset_left = -16.0
+offset_top = -17.778
+offset_right = 116.0
+offset_bottom = 9.222
+scale = Vector2(0.25, 0.25)
+
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

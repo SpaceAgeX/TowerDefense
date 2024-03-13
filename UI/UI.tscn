@@ -45,6 +45,14 @@ expand_margin_right = 30.0
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_q1mj0")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 4
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.012
+offset_bottom = 0.223938
+color = Color(0, 0, 0, 0.32549)
+
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 10

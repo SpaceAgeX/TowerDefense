@@ -1,12 +1,14 @@
 extends CanvasLayer
 
 
-@onready var dialogue_label = $HUD/Display
-@onready var side_bar = $Buttons
-@onready var Main = $".."
+
 
 var tween
 var selected_building
+
+@onready var dialogue_label = $HUD/Display
+@onready var side_bar = $Buttons
+@onready var Main = $".."
 
 
 func _ready():

@@ -3,6 +3,7 @@ extends Node2D
 
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
+var remove_building_on = false
 
 var enemy_parts = 40
 var production = 0
@@ -38,6 +39,7 @@ func _physics_process(_delta):
 		
 		UI.toggleSideBar(true)
 		new_tile_on = false
+		Rect.visible = false
 		
 		var new_tile = $Buildings.place_build_tile(mouse_position)
 		new_tile.clicked.connect(on_tile_clicked)
@@ -51,6 +53,8 @@ func cancel_place():
 		Rect.visible = false
 		UI.toggleSideBar(true)
 		on = BuildTile.Types.EMPTY
+		new_tile_on = false
+		remove_building_on = false
 
 
 func on_tile_clicked(tile):
@@ -78,7 +82,15 @@ func on_tile_clicked(tile):
 		on = BuildTile.Types.EMPTY
 		Rect.visible = false
 		get_node("Placer").visible=false
-		
+	
+	
+	if remove_building_on == true:
+		#selected_tile.type = BuildTile.Types.EMPTY
+		selected_tile.take_damage(selected_tile.stats["health"])
+		Rect.visible = false
+		remove_building_on = false
+		UI.toggleSideBar(true)
+	
 	
 	if on == BuildTile.Types.EMPTY:
 		UI.view_stats(selected_tile)
@@ -86,9 +98,7 @@ func on_tile_clicked(tile):
 	else:
 		print("Can't Place Here")
 		UI.write_dialogue("Can't Place There", 2)
-		
-	#selected_tile.updateType()
-	
+
 
 
 func _on_town_pressed():
@@ -135,12 +145,23 @@ func _on_new_tile_pressed():
 		UI.write_dialogue("You Need 250 Enemy Parts", 3)
 
 
+func _on_remove_building_pressed():
+		UI.toggleSideBar(false)
+		Rect.visible = true
+		on = BuildTile.Types.EMPTY
+		remove_building_on = true
+
+
 func createTown(tile):
 	var town_position = tile.global_position
 	
 	$UI/Buttons/Town.disabled = true
 	$UI/Buttons/Factory.disabled = false
 	$UI/Buttons/Silo.disabled = false
+	
+	$UI/Buttons/Tile.disabled = false
+	$UI/Buttons/Remove.disabled = false
+	
 	$Enemies.target = town_position
 	$Enemies.set_rate()
 
@@ -161,4 +182,5 @@ func updateTiles():
 		for x in silos:
 			var silo = get_node("Buildings/" + str(x))
 			silo.setRates((15/(productionEach+1)), 1)
+
 

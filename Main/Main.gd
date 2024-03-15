@@ -1,5 +1,6 @@
 extends Node2D
 
+const CAMERA_SPEED = 4
 
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
@@ -12,6 +13,7 @@ var enemyCount = 0
 @onready var Buildings = $Buildings
 @onready var UI = $UI
 @onready var Rect = $"ColorRect"
+@onready var camera = $Camera2D
 
 func _ready():
 	UI.updateCurrency(production, enemy_parts)
@@ -28,8 +30,16 @@ func _ready():
 
 
 func _physics_process(_delta):
-	# Cancels Building Placement
 	get_node("Placer").position = Vector2(snapped(get_global_mouse_position().x,64)-32, snapped(get_local_mouse_position().y,64)-32)
+	#get_node("Placer").position = Vector2(get_global_mouse_position().x ,get_local_mouse_position().y)
+	
+	var camera_x = Input.get_axis("camera_left", "camera_right")
+	var camera_y = Input.get_axis("camera_up", "camera_down")
+	
+	camera.position.x += camera_x * CAMERA_SPEED
+	camera.position.y += camera_y * CAMERA_SPEED
+	
+	# Cancels Building Placement
 	if Input.is_action_just_pressed("RightClick"):
 		cancel_place()
 	
@@ -46,6 +56,7 @@ func _physics_process(_delta):
 		
 		enemy_parts -= 250
 		UI.updateCurrency(production, enemy_parts)
+
 
 
 func cancel_place():

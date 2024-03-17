@@ -25,7 +25,7 @@ var timerFinished = false
 
 @onready var Main = get_tree().get_current_scene()
 @onready var Sprite = $Sprite
-@onready var Enemies = $"../../Enemies"
+@onready var Enemies = $"../../Spawner"
 
 
 func _ready():
@@ -114,10 +114,10 @@ func updateSilo():
 	nearest_enemy.onTarget = true
 	nearest_enemy.take_damage(self.stats["damage"], self.stats["missileTime"])
 	
-	var n = missile.instantiate()
-	n.target = nearest_enemy
-	n.time = self.stats["missileTime"]
-	add_child(n)
+	var m = missile.instantiate()
+	m.target = nearest_enemy
+	m.time = self.stats["missileTime"]
+	add_child(m)
 	
 	$Timer.start()
 
@@ -132,7 +132,9 @@ func setRates(cool,time):
 		self.stats["missileTime"] = time
 
 
-func take_damage(amount):
+func take_damage(amount, time):
+	await get_tree().create_timer(time).timeout
+	
 	if self.stats.has("health"):
 		var tween = create_tween()
 		
@@ -148,6 +150,16 @@ func take_damage(amount):
 		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 1, 1), 0.5)
 		#await get_tree().create_timer(0.55)
 		tween.tween_property(Sprite, "modulate", Color(0xffffff), 0.5)
+
+
+func set_ablaze(time):
+	$Fire.visible = true
+	await get_tree().create_timer(time).timeout
+	$Fire.visible = false
+
+
+func is_empty() -> bool:
+	return self.type == BuildTile.Types.EMPTY
 
 
 func _on_area_2d_mouse_entered():

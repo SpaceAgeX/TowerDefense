@@ -1,7 +1,7 @@
 [gd_scene load_steps=19 format=3 uid="uid://bmcbvbgvor4d3"]
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
-[ext_resource type="Script" path="res://UI/UI.gd" id="1_q1mj0"]
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="1_orq8u"]
 [ext_resource type="StyleBox" uid="uid://b33330g5gv3qx" path="res://UI/ButtonStyleBox.tres" id="3_cjypk"]
 [ext_resource type="Texture2D" uid="uid://dlio1f13tgfvj" path="res://Assets/Buildings.png" id="3_y6ged"]
 [ext_resource type="StyleBox" uid="uid://cponnsbw0gmap" path="res://UI/ButtonDisabledStyleBox.tres" id="4_thrgd"]
@@ -44,7 +44,7 @@ expand_margin_left = 10.0
 expand_margin_right = 30.0
 
 [node name="UI" type="CanvasLayer"]
-script = ExtResource("1_q1mj0")
+script = ExtResource("1_orq8u")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 z_index = 4

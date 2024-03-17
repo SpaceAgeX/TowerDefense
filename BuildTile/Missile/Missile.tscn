@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bc6dr4r6dcp70"]
 
-[ext_resource type="Script" path="res://BuildTile/Missile/Missile.gd" id="1_3dj84"]
+[ext_resource type="Script" path="res://Scripts/Missile.gd" id="1_2jt43"]
 [ext_resource type="Texture2D" uid="uid://ds4u3s2adt76s" path="res://Assets/missile.png" id="2_21kcv"]
 
 [node name="Missile" type="CharacterBody2D"]
 motion_mode = 1
-script = ExtResource("1_3dj84")
+script = ExtResource("1_2jt43")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1

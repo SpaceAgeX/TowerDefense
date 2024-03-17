@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx56wmhce6ys3"]
+[gd_scene load_steps=7 format=3 uid="uid://cx56wmhce6ys3"]
 
 [ext_resource type="Script" path="res://BuildTile/BuildTile.gd" id="1_cv8ei"]
 [ext_resource type="Texture2D" uid="uid://bg41ximuiq3uj" path="res://Assets/Grass.png" id="2_1h87d"]
@@ -6,6 +6,12 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fwuyg"]
 size = Vector2(16, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_owftr"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mo8bb"]
+bg_color = Color(0, 1, 0, 1)
 
 [node name="BuildTile" type="Node2D"]
 scale = Vector2(0.9, 0.9)
@@ -31,11 +37,14 @@ shape = SubResource("RectangleShape2D_fwuyg")
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
 z_index = 1
-offset_left = -16.0
-offset_top = -17.778
-offset_right = 116.0
-offset_bottom = 9.222
+offset_left = -7.0
+offset_top = 4.0
+offset_right = 50.0
+offset_bottom = 15.0
 scale = Vector2(0.25, 0.25)
+theme_override_styles/background = SubResource("StyleBoxFlat_owftr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mo8bb")
+show_percentage = false
 
 [connection signal="mouse_entered" from="Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="Area2D" to="." method="_on_area_2d_mouse_exited"]

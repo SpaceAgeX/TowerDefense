@@ -1,6 +1,9 @@
 extends Node2D
 
 const CAMERA_SPEED = 4
+const CAMERA_LIMITS_X = 1800
+const CAMERA_LIMITS_Y = 1100
+const CAMERA_ZOOM_LIMIT = 0.35
 
 var on = BuildTile.Types.EMPTY
 var new_tile_on = false
@@ -15,12 +18,13 @@ var enemyCount = 0
 @onready var Rect = $"ColorRect"
 @onready var camera = $Camera2D
 
+
 func _ready():
 	UI.updateCurrency(production, enemy_parts)
 	UI.toggleSideBar(true)
 	
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
-	DisplayServer.window_set_min_size(Vector2i(1200, 800))
+	DisplayServer.window_set_min_size(Vector2i(1400, 1000))
 	
 	randomize()
 	await get_tree().create_timer(0.1).timeout
@@ -31,13 +35,9 @@ func _ready():
 
 func _physics_process(_delta):
 	get_node("Placer").position = Vector2(snapped(get_global_mouse_position().x,64)-32, snapped(get_local_mouse_position().y,64)-32)
-	#get_node("Placer").position = Vector2(get_global_mouse_position().x ,get_local_mouse_position().y)
 	
-	var camera_x = Input.get_axis("camera_left", "camera_right")
-	var camera_y = Input.get_axis("camera_up", "camera_down")
-	
-	camera.position.x += camera_x * CAMERA_SPEED
-	camera.position.y += camera_y * CAMERA_SPEED
+	# Camera Controls
+	update_camera_control_input()
 	
 	# Cancels Building Placement
 	if Input.is_action_just_pressed("RightClick"):
@@ -57,6 +57,43 @@ func _physics_process(_delta):
 		enemy_parts -= 250
 		UI.updateCurrency(production, enemy_parts)
 
+
+func get_camera_dimensions():
+	var width = (1/camera.zoom.x) * 576 # * 2
+	var height = (1/camera.zoom.y) * 324 # * 2
+	
+	return Vector2(width, height)
+
+
+func update_camera_control_input():
+	var camera_x_movement = Input.get_axis("camera_left", "camera_right")
+	var camera_y_movement = Input.get_axis("camera_up", "camera_down")
+	var camera_zoom_movement = Input.get_axis("camera_zoom_out", "camera_zoom_in")
+	
+	if camera.zoom.x >= CAMERA_ZOOM_LIMIT and camera.zoom.y >= CAMERA_ZOOM_LIMIT:
+		camera.zoom.x += (camera_zoom_movement * 0.01)
+		camera.zoom.y += (camera_zoom_movement * 0.01)
+	else:
+		camera.zoom.x = CAMERA_ZOOM_LIMIT + 0.001
+		camera.zoom.y = CAMERA_ZOOM_LIMIT + 0.001
+	
+	var camera_dimensions = get_camera_dimensions()
+	
+	if abs(camera_dimensions.x) + abs(camera.position.x) <= CAMERA_LIMITS_X:
+		camera.position.x += camera_x_movement * CAMERA_SPEED
+	else:
+		if camera.position.x >= 0:
+			camera.position.x = CAMERA_LIMITS_X - camera_dimensions.x
+		else:
+			camera.position.x = CAMERA_LIMITS_X * -1 + camera_dimensions.x
+	
+	if abs(camera_dimensions.y) + abs(camera.position.y) <= CAMERA_LIMITS_Y:
+		camera.position.y += camera_y_movement * CAMERA_SPEED
+	else:
+		if camera.position.y >= 0:
+			camera.position.y = CAMERA_LIMITS_Y - camera_dimensions.y
+		else:
+			camera.position.y = CAMERA_LIMITS_Y * -1 + camera_dimensions.y
 
 
 func cancel_place():

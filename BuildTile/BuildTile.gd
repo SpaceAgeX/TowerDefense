@@ -95,7 +95,7 @@ func updateType(new_type: Types):
 				"missileTime": 1.0 
 			}
 			
-			#$ProgressBar.visible = true
+			$ProgressBar.visible = true
 			$Timer.wait_time = self.stats["cooldown"] + self.stats["missileTime"]
 			$Timer.start()
 
@@ -107,7 +107,6 @@ func setBuilding(frame):
 
 
 func updateSilo():
-	
 	timerFinished = false
 	
 	$Timer.wait_time = self.stats["cooldown"] + self.stats["missileTime"]

@@ -9,7 +9,7 @@ var on = BuildTile.Types.EMPTY
 var new_tile_on = false
 var remove_building_on = false
 
-var enemy_parts = 40
+var enemy_parts = 1000
 var production = 0
 var enemyCount = 0
 
@@ -133,11 +133,11 @@ func on_tile_clicked(tile):
 	
 	
 	if remove_building_on == true:
-		#selected_tile.type = BuildTile.Types.EMPTY
-		selected_tile.take_damage(selected_tile.stats["health"])
-		Rect.visible = false
-		remove_building_on = false
-		UI.toggleSideBar(true)
+		if selected_tile.type != BuildTile.Types.EMPTY:
+			selected_tile.take_damage(selected_tile.stats["health"])
+			Rect.visible = false
+			remove_building_on = false
+			UI.toggleSideBar(true)
 	
 	
 	if on == BuildTile.Types.EMPTY:
@@ -201,8 +201,6 @@ func _on_remove_building_pressed():
 
 
 func createTown(tile):
-	var town_position = tile.global_position
-	
 	$UI/Buttons/Town.disabled = true
 	$UI/Buttons/Factory.disabled = false
 	$UI/Buttons/Silo.disabled = false
@@ -210,8 +208,7 @@ func createTown(tile):
 	$UI/Buttons/Tile.disabled = false
 	$UI/Buttons/Remove.disabled = false
 	
-	$Enemies.target = town_position
-	$Enemies.set_rate()
+	$Spawner.set_rate()
 
 
 

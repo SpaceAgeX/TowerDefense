@@ -1,9 +1,10 @@
-extends CharacterBody2D
+class_name MissileLauncher extends CharacterBody2D
 
-@onready var Enemies = get_tree().get_current_scene().get_node("Enemies")
+@onready var Enemies = get_tree().get_current_scene().get_node("Spawner")
 
 var target: Node2D
 var time: float
+
 var speed: float
 var dist: float
 

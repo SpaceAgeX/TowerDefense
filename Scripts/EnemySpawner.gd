@@ -1,18 +1,17 @@
 extends Node2D
 
 var enemy_scene = preload("res://Enemy/Enemy.tscn")
-var enemy_node = null
 
-var target = Vector2.ZERO
-var rate = -1 # to disable spawing till needed
-var n = null
+var rate = -1 # to disable spawning till needed
 
 @export var enabled = true
-@export var rateIncrease = 0 #per frame
+@export var rateIncrease = 0.01 #per frame
 @export var spawnRate = 1 # over 100 chance per frame
-@export var spawnDist = 1500
+@export var x_variation = 750
+@export var y_variation = 0
 
 @onready var Buildings = $"../Buildings"
+@onready var Enemies = $"../Enemies"
 @onready var Main = $".."
 
 
@@ -31,26 +30,22 @@ func _physics_process(_delta):
 
 
 func spawnEnemy():
-	enemy_node = enemy_scene.instantiate()
-
+	var rand_x_direction = randf_range(-1, 1)
+	var rand_y_direction = randf_range(-1, 1)
 	
-	var randSpawnDirection = Vector2(randf_range(-1,1), randf_range(-1,1)).normalized()
-	#var rand_building = Buildings.get_random_building()
-	#var nearest_building = Buildings.get_nearest_building(enemy_node.position)
-	
-	enemy_node.Target = target
-	enemy_node.position = (randSpawnDirection * spawnDist) + enemy_node.Target
-	#enemy_node.Target = rand_building.position
-	
+	var enemy_node = enemy_scene.instantiate()
+	enemy_node.position.x = self.position.x + (rand_x_direction * x_variation)
+	enemy_node.position.y = self.position.y + (rand_y_direction * y_variation)
 	enemy_node.killed.connect(Main.on_enemy_killed)
-	self.add_child(enemy_node)
+	
+	Enemies.add_child(enemy_node)
 
 
 func get_nearest_enemy(pos):
-	if self.get_child_count() != 0:
-		var nearest = self.get_child(0)
+	if Enemies.get_child_count() != 0:
+		var nearest = Enemies.get_child(0)
 		
-		for child in self.get_children():
+		for child in Enemies.get_children():
 			if child.position.distance_to(pos) < nearest.position.distance_to(pos):
 				nearest = child
 		
@@ -60,11 +55,11 @@ func get_nearest_enemy(pos):
 
 
 func get_nearest_untargeted_enemy(pos):
-	if self.get_child_count() != 0:
+	if Enemies.get_child_count() != 0:
 		
-		var nearest = self.get_child(0)
+		var nearest = Enemies.get_child(0)
 		
-		for child in self.get_children():
+		for child in Enemies.get_children():
 			if child.position.distance_to(pos) < nearest.position.distance_to(pos) and !child.onTarget:
 				nearest = child
 				

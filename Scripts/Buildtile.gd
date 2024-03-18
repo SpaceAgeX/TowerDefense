@@ -8,6 +8,7 @@ enum Types {
 	TOWN,
 	FACTORY,
 	SILO,
+	DESTROY,
 }
 
 var missile = preload("res://BuildTile/Missile/Missile.tscn")
@@ -98,6 +99,10 @@ func updateType(new_type: Types):
 			$ProgressBar.visible = true
 			$Timer.wait_time = self.stats["cooldown"] + self.stats["missileTime"]
 			$Timer.start()
+		Types.DESTROY:
+			$Sprite.frame_coords = Vector2($Sprite.frame_coords.x,1)
+			set_ablaze(5)
+
 
 
 func setBuilding(frame):
@@ -143,8 +148,7 @@ func take_damage(amount, time):
 		if self.stats["health"] <= 0:
 			if type == BuildTile.Types.FACTORY:
 				Main.production -= self.stats["productionRate"]
-			
-			updateType(BuildTile.Types.EMPTY)
+			updateType(BuildTile.Types.DESTROY)
 			$ProgressBar.visible = false
 
 		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 1, 1), 0.5)

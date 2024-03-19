@@ -26,6 +26,7 @@ var timerFinished = false
 @onready var Main = get_tree().get_current_scene()
 @onready var Sprite = $Sprite
 @onready var Enemies = $"../../Spawner"
+@onready var UI = get_tree().get_current_scene().get_node("UI")
 
 
 func _ready():
@@ -143,6 +144,11 @@ func take_damage(amount, time):
 		if self.stats["health"] <= 0:
 			if type == BuildTile.Types.FACTORY:
 				Main.production -= self.stats["productionRate"]
+				UI.updateCurrency(Main.production, Main.enemy_parts)
+				Main.updateTiles()
+				
+			elif type == BuildTile.Types.TOWN:
+				Main.resetGame()
 			
 			updateType(BuildTile.Types.EMPTY)
 			$ProgressBar.visible = false

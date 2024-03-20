@@ -117,6 +117,7 @@ scale = Vector2(5, 5)
 texture = ExtResource("3_y6ged")
 centered = false
 hframes = 8
+vframes = 2
 
 [node name="Factory" type="Button" parent="Buttons"]
 layout_mode = 1
@@ -141,6 +142,7 @@ scale = Vector2(5, 5)
 texture = ExtResource("3_y6ged")
 centered = false
 hframes = 8
+vframes = 2
 frame = 3
 
 [node name="Silo" type="Button" parent="Buttons"]
@@ -166,6 +168,7 @@ scale = Vector2(5, 5)
 texture = ExtResource("3_y6ged")
 centered = false
 hframes = 8
+vframes = 2
 frame = 6
 
 [node name="Tile" type="Button" parent="Buttons"]
@@ -266,6 +269,7 @@ position = Vector2(50, 50)
 scale = Vector2(5, 5)
 texture = ExtResource("3_y6ged")
 hframes = 8
+vframes = 2
 frame = 5
 
 [node name="TypeLabel" type="Label" parent="BuildingStats"]
@@ -395,6 +399,7 @@ position = Vector2(37, 35.5)
 scale = Vector2(5.625, 5.4375)
 texture = ExtResource("3_y6ged")
 hframes = 8
+vframes = 2
 frame = 3
 
 [node name="EnemyPartsLabel" type="Label" parent="Currency"]

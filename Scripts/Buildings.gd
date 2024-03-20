@@ -35,7 +35,7 @@ func get_nearest_building(pos):
 		
 		for building in self.get_children():
 			var closer_than_nearest = building.global_position.distance_to(pos) < nearest.global_position.distance_to(pos)
-			var is_not_empty =  building.type != BuildTile.Types.EMPTY and building.type != 0
+			var is_not_empty =  building.type != BuildTile.Types.EMPTY and building.type != 0 and building.type != BuildTile.Types.DESTROY
 			
 			if is_not_empty and closer_than_nearest:
 				nearest = building

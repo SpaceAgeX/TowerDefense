@@ -65,39 +65,41 @@ func  _ready():
 
 func _physics_process(_delta):
 	$Sprite2D.flip_h = direction.x < 0
+	$Shadow.flip_h = direction.x < 0
 	
-	if behavior == Behaviors.SOLDIER:
-		target_building = Buildings.get_nearest_building(self.position)
-		direction = position.direction_to(target_building.global_position)
+	match behavior:
+		Behaviors.SOLDIER:
+			target_building = Buildings.get_nearest_building(self.position)
+			direction = position.direction_to(target_building.global_position)
+			
+			if direction and position.distance_to(target_building.global_position) > 200:
+				velocity = direction * SPEED
+			else:
+				velocity = Vector2.ZERO
+			
+			move_and_slide()
 		
-		if direction and position.distance_to(target_building.global_position) > 200:
+		Behaviors.TANK:
+			target_building = Buildings.get_nearest_building(self.position)
+			direction = position.direction_to(target_building.global_position)
+			
 			velocity = direction * SPEED
-		else:
-			velocity = Vector2.ZERO
+			
+			if direction and position.distance_to(target_building.global_position) < 5:
+				explode()
+			
+			move_and_slide()
 		
-		move_and_slide()
-	
-	elif behavior == Behaviors.TANK:
-		target_building = Buildings.get_nearest_building(self.position)
-		direction = position.direction_to(target_building.global_position)
-		
-		velocity = direction * SPEED
-		
-		if direction and position.distance_to(target_building.global_position) < 5:
-			explode()
-		
-		move_and_slide()
-	
-	elif behavior == Behaviors.PLANE:
-		velocity = direction * SPEED
-		move_and_slide()
-		
-		if position.distance_to(target_building.global_position) < 5 and not has_bombed:
-			drop_bomb()
-		
-		if has_bombed:
-			await get_tree().create_timer(10).timeout
-			queue_free()
+		Behaviors.PLANE:
+			velocity = direction * SPEED
+			move_and_slide()
+			
+			if position.distance_to(target_building.global_position) < 5 and not has_bombed:
+				drop_bomb()
+			
+			if has_bombed:
+				await get_tree().create_timer(10).timeout
+				queue_free()
 
 
 func take_damage(dmg, time):

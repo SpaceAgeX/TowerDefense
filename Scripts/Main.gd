@@ -23,7 +23,7 @@ func _ready():
 	UI.updateCurrency(production, enemy_parts)
 	UI.toggleSideBar(true)
 	
-	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+	#DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
 	DisplayServer.window_set_min_size(Vector2i(1400, 1000))
 	
 	randomize()
@@ -51,11 +51,20 @@ func _physics_process(_delta):
 		new_tile_on = false
 		Rect.visible = false
 		
-		var new_tile = $Buildings.place_build_tile(mouse_position)
-		new_tile.clicked.connect(on_tile_clicked)
-		
-		enemy_parts -= 250
-		UI.updateCurrency(production, enemy_parts)
+		if $Buildings.is_adjacent_to_tiles(mouse_position):
+			var new_tile = $Buildings.place_build_tile(mouse_position)
+			new_tile.clicked.connect(on_tile_clicked)
+			
+			enemy_parts -= 250
+			UI.updateCurrency(production, enemy_parts)
+		else:
+			UI.write_dialogue("Must Place Tile Adjacent To Existing Tile")
+
+
+func resetGame():
+	# Bring UI To A "You Died" Screen
+	await get_tree().create_timer(3.0).timeout
+	get_tree().reload_current_scene()
 
 
 func get_camera_dimensions():
@@ -134,7 +143,11 @@ func on_tile_clicked(tile):
 	
 	if remove_building_on == true:
 		if selected_tile.type != BuildTile.Types.EMPTY:
-			selected_tile.take_damage(selected_tile.stats["health"])
+			if selected_tile.type == BuildTile.Types.TOWN:
+				UI.write_dialogue("Can't Remove Towns", 1.5)
+				return
+			
+			selected_tile.take_damage(selected_tile.stats["health"], 0.0)
 			Rect.visible = false
 			remove_building_on = false
 			UI.toggleSideBar(true)

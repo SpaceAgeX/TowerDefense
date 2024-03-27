@@ -3,14 +3,16 @@ extends TileMap
 
 @onready var build_tile_scene = preload("res://BuildTile/Build_tile.tscn")
 
-
-func is_adjacent_to_tiles(pos):
+# Function in Progress
+func is_adjacent_to_existing_tiles(pos) -> bool:
 	var x_position = floor(pos.x/64)*16
 	var y_position = floor(pos.y/64)*16
 	var tile_position = Vector2i(x_position+8, y_position+8)
 	
 	#for tile in self.get_children():
 		#if tile.position.x == tile_position + 
+	
+	return true # Temporary
 
 
 func place_build_tile(pos):

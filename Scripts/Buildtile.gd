@@ -100,8 +100,10 @@ func updateType(new_type: Types):
 			$ProgressBar.visible = true
 			$Timer.wait_time = self.stats["cooldown"] + self.stats["missileTime"]
 			$Timer.start()
-      
+		
 		Types.DESTROY:
+			stats = {  }
+			placeable = false
 			$Sprite.frame_coords = Vector2($Sprite.frame_coords.x,1)
 			set_ablaze(5)
 
@@ -148,22 +150,29 @@ func take_damage(amount, time):
 		self.stats["health"] -= amount
 		
 		if self.stats["health"] <= 0:
-			if type == BuildTile.Types.FACTORY:
-				Main.production -= self.stats["productionRate"]
-
-				UI.updateCurrency(Main.production, Main.enemy_parts)
-				Main.updateTiles()
-				
-			elif type == BuildTile.Types.TOWN:
-				Main.resetGame()
-			
-
-			updateType(BuildTile.Types.DESTROY)
-			$ProgressBar.visible = false
+			die()
 
 		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 1, 1), 0.5)
 		#await get_tree().create_timer(0.55)
 		tween.tween_property(Sprite, "modulate", Color(0xffffff), 0.5)
+
+
+func die():
+	if type == BuildTile.Types.FACTORY:
+		Main.production -= self.stats["productionRate"]
+		
+		UI.updateCurrency(Main.production, Main.enemy_parts)
+		Main.updateTiles()
+	
+	elif type == BuildTile.Types.TOWN:
+		Main.resetGame()
+	
+	elif type == BuildTile.Types.DESTROY:
+		updateType(BuildTile.Types.EMPTY)
+		return
+	
+	updateType(BuildTile.Types.DESTROY)
+	$ProgressBar.visible = false
 
 
 func set_ablaze(time):

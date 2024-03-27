@@ -76,6 +76,10 @@ func view_stats(tile):
 		BuildTile.Types.SILO:
 			sprite_frame = 6
 			building_type = "Silo"
+		
+		BuildTile.Types.DESTROY:
+			sprite_frame = 1
+			building_type = "Destroyed"
 	
 	$BuildingStats/BuildingSprite.frame = sprite_frame
 	$BuildingStats/TypeLabel.text = building_type

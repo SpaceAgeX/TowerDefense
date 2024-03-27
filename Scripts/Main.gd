@@ -51,14 +51,14 @@ func _physics_process(_delta):
 		new_tile_on = false
 		Rect.visible = false
 		
-		if $Buildings.is_adjacent_to_tiles(mouse_position):
+		if $Buildings.is_adjacent_to_existing_tiles(mouse_position):
 			var new_tile = $Buildings.place_build_tile(mouse_position)
 			new_tile.clicked.connect(on_tile_clicked)
 			
 			enemy_parts -= 250
 			UI.updateCurrency(production, enemy_parts)
 		else:
-			UI.write_dialogue("Must Place Tile Adjacent To Existing Tile")
+			UI.write_dialogue("Must Place Tile Adjacent To Existing Tile", 2.0)
 
 
 func resetGame():
@@ -147,7 +147,7 @@ func on_tile_clicked(tile):
 				UI.write_dialogue("Can't Remove Towns", 1.5)
 				return
 			
-			selected_tile.take_damage(selected_tile.stats["health"], 0.0)
+			selected_tile.die()
 			Rect.visible = false
 			remove_building_on = false
 			UI.toggleSideBar(true)

@@ -154,7 +154,7 @@ func take_damage(amount, time):
 
 		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 1, 1), 0.5)
 		#await get_tree().create_timer(0.55)
-		tween.tween_property(Sprite, "modulate", Color(0xffffff), 0.5)
+		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 0, 1), 0.5)
 
 
 func die():

@@ -57,6 +57,7 @@ func  _ready():
 		$Shadow.visible = true
 		$Target.position.y -= 20
 		behavior = Behaviors.PLANE
+		SPEED = randi_range(160,250)
 		target_building = Buildings.get_random_building()
 	
 	direction = position.direction_to(target_building.global_position)

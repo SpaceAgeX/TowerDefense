@@ -150,6 +150,7 @@ func on_tile_clicked(tile):
 			selected_tile.die()
 			Rect.visible = false
 			remove_building_on = false
+			enemy_parts -= 250
 			UI.toggleSideBar(true)
 	
 	
@@ -207,10 +208,13 @@ func _on_new_tile_pressed():
 
 
 func _on_remove_building_pressed():
+	if enemy_parts >= 250:
 		UI.toggleSideBar(false)
 		Rect.visible = true
 		on = BuildTile.Types.EMPTY
 		remove_building_on = true
+	else:
+		UI.write_dialogue("You Need 250 Enemy Parts", 3)
 
 
 func createTown(tile):

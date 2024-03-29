@@ -1,8 +1,5 @@
 extends CanvasLayer
 
-
-
-
 var tween
 var selected_building
 
@@ -12,7 +9,7 @@ var selected_building
 
 
 func _ready():
-	# Fix the dimensions of Stats Panel
+	# Fixes the dimensions of Stats Panel
 	$BuildingStats.size.y = 600
 	$BuildingStats.position.y -= 200
 

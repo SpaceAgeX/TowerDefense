@@ -1,0 +1,6 @@
+To Create A New Building
+
+1. Add Building Name To BuildTile.Types Enumeration
+2. Add Per-Frame Functionality by Updating The Match Statement in The BuildTile.physics_process() func
+3. Define Stats and other constants in the BuildTile.updateType() Function's Match Statement
+4. Specify How The Game Reacts to the Building's Death in the BuildTile.die() function

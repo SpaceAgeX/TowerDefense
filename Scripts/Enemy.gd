@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-signal killed
+signal killed(enemy)
 
 var SPEED = randi_range(25,100)
 
@@ -16,6 +16,7 @@ var missile = preload("res://BuildTile/Missile/Missile.tscn")
 
 var onTarget = false
 var health = 10.0
+var reward = 40 # The Number of Enemy Parts You Get Upon Death
 
 var bomb_damage = 1
 var bomb_range = 200
@@ -57,6 +58,7 @@ func  _ready():
 		$Shadow.visible = true
 		$Target.position.y -= 20
 		behavior = Behaviors.PLANE
+		SPEED = randi_range(160,250)
 		target_building = Buildings.get_random_building()
 	
 	direction = position.direction_to(target_building.global_position)
@@ -109,7 +111,7 @@ func take_damage(dmg, time):
 	health -= dmg
 	
 	if health <= 0:
-		killed.emit()
+		killed.emit(self)
 		self.queue_free()
 	
 	$Target.visible = false

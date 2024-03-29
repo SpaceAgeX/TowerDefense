@@ -45,13 +45,17 @@ func _physics_process(_delta):
 	if Input.is_action_just_pressed("Click") and InArea:
 		#print("Click on:" + str(position))
 		clicked.emit(self.name)
+	
 	match type:
 		Types.EMPTY:
 			pass
+		
 		Types.TOWN:
 			pass
+		
 		Types.FACTORY:
 			pass
+		
 		Types.SILO:
 			if timerFinished:
 				nearest_enemy = Enemies.get_nearest_untargeted_enemy(self.position)
@@ -132,7 +136,7 @@ func updateSilo():
 
 
 # Only Applicable to Silos
-func setRates(cool,time):
+func setRates(cool, time):
 	if self.type == BuildTile.Types.SILO:
 		$Timer.wait_time = ($Timer.time_left/$Timer.wait_time)*cool
 		$Timer.start()
@@ -153,8 +157,7 @@ func take_damage(amount, time):
 			die()
 
 		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 1, 1), 0.5)
-		#await get_tree().create_timer(0.55)
-		tween.tween_property(Sprite, "modulate", Color(0xffffff), 0.5)
+		tween.tween_property(Sprite, "modulate", Color.from_hsv(0, 0, 1), 0.5)
 
 
 func die():

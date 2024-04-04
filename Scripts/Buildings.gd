@@ -26,7 +26,7 @@ func place_build_tile(pos):
 	var x_position = floor(pos.x/64)*16
 	var y_position = floor(pos.y/64)*16
 	
-	print(pos, " -> ", Vector2(x_position, y_position))
+	print("Snapping Functionality: ", pos, " -> ", Vector2(x_position, y_position))
 	
 	var new_tile = build_tile_scene.instantiate()
 	self.add_child(new_tile)

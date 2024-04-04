@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bmcbvbgvor4d3"]
+[gd_scene load_steps=20 format=3 uid="uid://bmcbvbgvor4d3"]
 
 [ext_resource type="FontFile" uid="uid://ccqvl037nipux" path="res://Assets/Ubuntu-Medium.ttf" id="1_m3gep"]
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="1_orq8u"]
@@ -23,6 +23,15 @@ bg_color = Color(0.509804, 0.298039, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ugl2p"]
 bg_color = Color(0.75, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_blo4f"]
+bg_color = Color(0, 0.698039, 0.392157, 1)
 border_width_left = 5
 border_width_top = 5
 border_width_right = 5
@@ -55,6 +64,7 @@ offset_bottom = 0.223938
 color = Color(0, 0, 0, 0.32549)
 
 [node name="HUD" type="Control" parent="."]
+z_index = 5
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
@@ -78,6 +88,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Buttons" type="Control" parent="."]
+z_index = 5
 layout_mode = 3
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -216,6 +227,7 @@ texture = ExtResource("8_6ir1o")
 centered = false
 
 [node name="ToggleSideBar" type="Button" parent="."]
+z_index = 5
 offset_left = 25.0
 offset_top = 10.0
 offset_right = 100.0
@@ -228,6 +240,7 @@ texture = ExtResource("7_nb8e2")
 centered = false
 
 [node name="BuildingStats" type="Control" parent="."]
+z_index = 5
 layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
@@ -253,6 +266,20 @@ theme_override_fonts/font = ExtResource("1_m3gep")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_ugl2p")
 text = "X"
+
+[node name="UpgradeButton" type="Button" parent="BuildingStats"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -330.0
+offset_top = -75.0
+offset_right = -79.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("1_m3gep")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_blo4f")
+text = "Upgrade"
 
 [node name="ColorRect" type="ColorRect" parent="BuildingStats"]
 layout_mode = 1
@@ -374,6 +401,7 @@ scale = Vector2(3, 3)
 texture = ExtResource("12_plrm3")
 
 [node name="Currency" type="Control" parent="."]
+z_index = 5
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -423,3 +451,4 @@ frame = 3
 
 [connection signal="pressed" from="ToggleSideBar" to="." method="_on_toggle_side_bar_pressed"]
 [connection signal="pressed" from="BuildingStats/CloseStatsButton" to="." method="_on_close_stats_button_pressed"]
+[connection signal="pressed" from="BuildingStats/UpgradeButton" to="." method="_on_upgrade_button_pressed"]

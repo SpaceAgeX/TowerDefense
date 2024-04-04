@@ -226,7 +226,7 @@ func _on_remove_building_pressed():
 		UI.write_dialogue("You Need 250 Enemy Parts", 3)
 
 
-func createTown(tile):
+func createTown(_tile):
 	$UI/Buttons/Town.disabled = true
 	$UI/Buttons/Factory.disabled = false
 	$UI/Buttons/Silo.disabled = false

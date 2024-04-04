@@ -120,3 +120,8 @@ func _on_toggle_side_bar_pressed():
 
 func _on_close_stats_button_pressed():
 	$BuildingStats.set_visible(false)
+	selected_building = null
+
+
+func _on_upgrade_button_pressed():
+	selected_building.upgrade()

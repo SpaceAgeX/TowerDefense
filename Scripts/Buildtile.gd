@@ -43,7 +43,6 @@ func _ready():
 
 func _physics_process(_delta):
 	if Input.is_action_just_pressed("Click") and InArea:
-		#print("Click on:" + str(position))
 		clicked.emit(self.name)
 	
 	match type:
@@ -77,7 +76,11 @@ func updateType(new_type: Types):
 		Types.TOWN:
 			placeable = false
 			setBuilding(0)
-			stats = { "health": 10, "maxHealth": 10 }
+			stats = {
+				"health": 10, 
+				"maxHealth": 10 ,
+				"upgrades": 0,
+			}
 		
 		Types.FACTORY:
 			placeable = false
@@ -86,7 +89,8 @@ func updateType(new_type: Types):
 			stats = { 
 				"health": 10, 
 				"maxHealth": 10, 
-				"productionRate": 5 
+				"productionRate": 5,
+				"upgrades": 0
 			}
 		
 		Types.SILO:
@@ -98,7 +102,8 @@ func updateType(new_type: Types):
 				"maxHealth": 10, 
 				"damage": 10, 
 				"cooldown": 15, 
-				"missileTime": 1.0 
+				"missileTime": 1.0,
+				"upgrades": 0,
 			}
 			
 			$ProgressBar.visible = true
@@ -176,6 +181,24 @@ func die():
 	
 	updateType(BuildTile.Types.DESTROY)
 	$ProgressBar.visible = false
+
+
+# In Progress ...
+func upgrade():
+	print("Upgrade Pressed ", type)
+	
+	match type:
+		Types.EMPTY:
+			UI.write_dialogue("Can't Upgrade Empty Tile", 2.0)
+		
+		Types.TOWN:
+			pass
+		
+		Types.SILO:
+			pass
+		
+		Types.FACTORY:
+			pass
 
 
 func set_ablaze(time):

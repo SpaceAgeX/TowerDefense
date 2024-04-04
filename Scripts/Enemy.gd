@@ -49,7 +49,7 @@ func  _ready():
 	
 	elif type > 1 and type < 5:
 		behavior = Behaviors.TANK
-		print(behavior)
+		#print(behavior)
 		target_building = Buildings.get_nearest_building(self.position)
 		shoot_target()
 	
